@@ -17,7 +17,7 @@ function SystemsHeaderBuilder(configuration, systemBuilders, sequenceDiagramId, 
     }
 
     function leftUpperCornerXLocationOfSystem(systemBuilder) {
-        return configuration.distanceFromLeftBorder + distancesCalculator.distanceFromFirstSystemAndSystem(systemBuilder);
+        return configuration.distanceFromLeftBorder + distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem(systemBuilder.name());
     }
 
     function translate(aSystemBuilder, x, y) {
@@ -33,7 +33,7 @@ function SystemsHeaderBuilder(configuration, systemBuilders, sequenceDiagramId, 
             .attr("x2", conversationLineXCoordinate)
             .attr("y2", configuration.distanceFromUpperBorder + aSystemBuilder.height() + configuration.distanceFromUpperBorder)
             .attr("fill", "#A80036")
-            .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;")
+            .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;")
     }
 
     this.draw = function (svgContainer) {
