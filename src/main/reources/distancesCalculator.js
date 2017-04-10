@@ -10,15 +10,6 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
         return systemsBuilder[systemsBuilder.length - 1]
     }
 
-    this.sequenceDiagramWidth = function () {
-        const lastSystemBuilder = lastSystemBuilderIn(systemsBuilder)
-
-        return configuration.distanceFromHorizontalBorder +
-            this.leftUpperCornerDistanceBetweenFirstSystemAndSystem(lastSystemBuilder.name()) +
-            lastSystemBuilder.width() +
-            configuration.distanceFromHorizontalBorder
-    }
-
     function nameOfTheSystemsBefore(systemName) {
         return conversationReport.systemNames.slice(0, conversationReport.systemNames.indexOf(systemName))
     }
@@ -53,6 +44,15 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
         return value
 
+    }
+
+    this.sequenceDiagramWidth = function () {
+        const lastSystemBuilder = lastSystemBuilderIn(systemsBuilder)
+
+        return configuration.distanceFromHorizontalBorder +
+            this.leftUpperCornerDistanceBetweenFirstSystemAndSystem(lastSystemBuilder.name()) +
+            lastSystemBuilder.width() +
+            configuration.distanceFromHorizontalBorder
     }
 
     this.leftUpperCornerDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
