@@ -8,7 +8,7 @@ var systemBuilder = new SystemBuilder(
     new TextLengthCalculator(svgContainer)
 )
 
-QUnit.test("size of A is correct", function (assert) {
+QUnit.test("systemBuilder can be draw", function (assert) {
 
     systemBuilder.draw(svgContainer)
 

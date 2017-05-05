@@ -58,6 +58,33 @@ QUnit.test(
     })
 
 QUnit.test(
+    "given 3 systems A B C with longest message description AC undefined " +
+    "then system position depends on default distance and no from message description length",
+    function (assert) {
+
+        function MaxDescriptionMessageLengthCalculator() {
+            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+                return undefined
+            }
+        }
+
+        var conversationReport = {
+            "systemNames": ["A", "B", "C"]
+        }
+
+        var systemsBuilder = [new SystemBuilder("A", 50 + 50), new SystemBuilder("B", 10 + 10), new SystemBuilder("C", 20 + 20)]
+
+        var distancesCalculator = new DistancesCalculator(
+            configuration, systemsBuilder, conversationReport, new MaxDescriptionMessageLengthCalculator()
+        )
+
+        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
+        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is equals to the default one")
+        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("C"), 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems, "distance from A to C is equals to the default one")
+
+    })
+
+QUnit.test(
     "given 3 systems A B C with distance AB equals to the default one because longest description AB is less the default distance, " +
     "and AC longest message 0 and BC longest message longer " +
     "then BC default distance then C position depends on BC longest description value and not from the default distance, or messages with A",

@@ -1,4 +1,4 @@
-function DistancesCalculator(configuration, systemsBuilder, conversationReport, maxDescriptionMessageLengthCalculator) {
+function ConversationReporFactory(conversation) {
 
     var that = this
 

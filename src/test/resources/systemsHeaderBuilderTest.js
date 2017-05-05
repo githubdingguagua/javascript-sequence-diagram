@@ -38,6 +38,7 @@ var systemBuilders = [systemBuilderA,systemBuilderB,systemBuilderC]
 var conversationReport = {
     "systemNames": systemNames
 }
+
 function MaxDescriptionMessageLengthCalculator() {
     this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
         if (firstSystemName === "ThisIsASystem" && secondSystemName === "This_is_the_third_system") {

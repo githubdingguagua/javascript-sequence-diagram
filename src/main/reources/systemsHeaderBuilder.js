@@ -54,7 +54,6 @@ function SystemsHeaderBuilder(configuration, systemBuilders, sequenceDiagramId, 
             drawConversationLine(aSystemBuilder, mainContainer)
         })
 
-
     }
 
 }
