@@ -1,6 +1,6 @@
-function SystemsHeaderBuilder(systems) {
+function SystemsHeaderBuilder() {
 
-    this.draw = function (svgContainer) {
+    this.draw = function (svgContainer, systems, conversation) {
 
     }
 
