@@ -71,11 +71,9 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
             return 0
         }
 
-        var possibleDistances = []
-
         console.log("Analysing all systems before " + nameOfTheSystemToAnalyse + ", then [" + nameOfTheSystemsBefore(nameOfTheSystemToAnalyse).join(", ") + "] using max description length")
 
-        nameOfTheSystemsBefore(nameOfTheSystemToAnalyse).forEach(function (aPreviousSystemName) {
+        var possibleDistances = nameOfTheSystemsBefore(nameOfTheSystemToAnalyse).reduce(function (possibleDistances, aPreviousSystemName) {
 
             var distanceToAPreviousSystem = that.leftUpperCornerDistanceBetweenFirstSystemAndSystem(aPreviousSystemName)
             var aPreviousSystemHalfDistance = systemBuilderWithName(aPreviousSystemName).width() / 2
@@ -94,8 +92,10 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
                 possibleDistances.push(possibleDistance)
 
                 console.log("New possible distance to " + nameOfTheSystemToAnalyse + " is " + possibleDistance + " then all possibles distances are [" + possibleDistances.join(", ") + "] ")
+
             }
-        })
+            return possibleDistances
+        }, [])
 
         possibleDistances.push(usingDefaultDistanceAsLastLegCalculateDistanceFromFirstSystemToSystem(nameOfTheSystemToAnalyse))
 
