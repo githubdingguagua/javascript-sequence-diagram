@@ -29,12 +29,8 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
 
     function appendConversationLinesTo(mainContainer, systemsBuilder) {
 
-        function leftUpperCornerXLocationOfSystem(systemBuilder) {
-            return configuration.distanceFromLeftBorder + distancesCalculator.middlePointXCoordinateOfSystem(systemBuilder.name())
-        }
-
         function drawConversationLineFor(aSystemBuilder, mainContainer) {
-            var conversationLineXCoordinate = distancesCalculator.middlePointXCoordinateOfSystem(aSystemBuilder.name()) //leftUpperCornerXLocationOfSystem(aSystemBuilder) + aSystemBuilder.width() / 2
+            var conversationLineXCoordinate = distancesCalculator.middlePointXCoordinateOfSystem(aSystemBuilder.name())
 
             mainContainer.append("line")
                 .attr("x1", conversationLineXCoordinate)
@@ -52,12 +48,15 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
 
     function appendMessagesTo(mainContainer, conversationReport) {
 
-        function messageLine(aMessage) {
+        function messageLine(aMessage, messageIndex) {
+
+            var messageYCoordinate = (messageIndex + 1) * configuration.distanceBetweenMessages
+
             mainContainer.append("line")
                 .attr("x1", distancesCalculator.middlePointXCoordinateOfSystem(aMessage.to))
-                .attr("y1", 0)
+                .attr("y1", messageYCoordinate)
                 .attr("x2", distancesCalculator.middlePointXCoordinateOfSystem(aMessage.from))
-                .attr("y2", panelHeight)
+                .attr("y2", messageYCoordinate)
                 .attr("fill", "#A80036")
                 .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;")
         }
@@ -66,9 +65,9 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
 
         }
 
-        conversationReport.messages.forEach(function (aMessage) {
-            messageLine(aMessage);
-            messageArrow(aMessage)
+        conversationReport.messages.forEach(function (aMessage, messageIndex) {
+            messageLine(aMessage, messageIndex);
+            messageArrow(aMessage, messageIndex)
         })
 
     }
@@ -80,7 +79,7 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
 
         appendConversationLinesTo(mainContainer, systemsBuilder)
 
-        appendMessagesTo(mainContainer)
+        appendMessagesTo(mainContainer, conversationReport)
     }
 
 }

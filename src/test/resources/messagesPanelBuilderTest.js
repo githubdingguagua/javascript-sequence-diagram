@@ -1,4 +1,4 @@
-var configuration = {distanceBetweenMessages:30, distanceFromLeftBorder:10 }
+var configuration = {distanceBetweenMessages: 30, distanceFromLeftBorder: 10}
 
 var svgContainer = d3.select("#svgElement")
 
@@ -16,13 +16,20 @@ var systemsBuilder = [new SystemBuilder("A", 50 + 50), new SystemBuilder("B", 50
 function DistancesCalculator() {
 
     this.sequenceDiagramWidth = function () {
-        return 1500
+        return 100 + 400 + 50 + 50 + 100
     }
+
 
     this.leftBorderDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
         if (nameOfTheSystemToAnalyse == "A") return 0
         if (nameOfTheSystemToAnalyse == "B") return 200
         if (nameOfTheSystemToAnalyse == "C") return 400
+    }
+
+    this.middlePointXCoordinateOfSystem = function (nameOfTheSystemToAnalyse) {
+        if (nameOfTheSystemToAnalyse == "A") return 100 + 50
+        if (nameOfTheSystemToAnalyse == "B") return 100 + 200 + 50
+        if (nameOfTheSystemToAnalyse == "C") return 100 + 400 + 50
     }
 
 }
@@ -34,7 +41,7 @@ var aMessagesPanelBuilder = new MessagesPanelBuilder(
         messages: [
             {from: "A", to: "B", description: "message from A to B"},
             {from: "A", to: "C", description: "message from A to C"},
-            {from: "C", to: "B", description: "message from A to C"},
+            {from: "C", to: "B", description: "message from A to C"}
         ]
     },
     "anId",
