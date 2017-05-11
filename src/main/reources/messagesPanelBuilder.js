@@ -30,11 +30,11 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
     function appendConversationLinesTo(mainContainer, systemsBuilder) {
 
         function leftUpperCornerXLocationOfSystem(systemBuilder) {
-            return configuration.distanceFromLeftBorder + distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem(systemBuilder.name());
+            return configuration.distanceFromLeftBorder + distancesCalculator.middlePointXCoordinateOfSystem(systemBuilder.name())
         }
 
         function drawConversationLineFor(aSystemBuilder, mainContainer) {
-            var conversationLineXCoordinate = leftUpperCornerXLocationOfSystem(aSystemBuilder) + aSystemBuilder.width() / 2
+            var conversationLineXCoordinate = distancesCalculator.middlePointXCoordinateOfSystem(aSystemBuilder.name()) //leftUpperCornerXLocationOfSystem(aSystemBuilder) + aSystemBuilder.width() / 2
 
             mainContainer.append("line")
                 .attr("x1", conversationLineXCoordinate)
@@ -50,11 +50,37 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
         })
     }
 
+    function appendMessagesTo(mainContainer, conversationReport) {
+
+        function messageLine(aMessage) {
+            mainContainer.append("line")
+                .attr("x1", distancesCalculator.middlePointXCoordinateOfSystem(aMessage.to))
+                .attr("y1", 0)
+                .attr("x2", distancesCalculator.middlePointXCoordinateOfSystem(aMessage.from))
+                .attr("y2", panelHeight)
+                .attr("fill", "#A80036")
+                .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;")
+        }
+
+        function messageArrow(aMessage) {
+
+        }
+
+        conversationReport.messages.forEach(function (aMessage) {
+            messageLine(aMessage);
+            messageArrow(aMessage)
+        })
+
+    }
+
     this.draw = function (svgContainer) {
         var mainContainer = svgContainer.append("g").attr("id", groupId())
 
-        appendRectTo(mainContainer, panelWidth, panelHeight);
-        appendConversationLinesTo(mainContainer, systemsBuilder);
+        appendRectTo(mainContainer, panelWidth, panelHeight)
+
+        appendConversationLinesTo(mainContainer, systemsBuilder)
+
+        appendMessagesTo(mainContainer)
     }
 
 }

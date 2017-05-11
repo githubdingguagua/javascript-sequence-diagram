@@ -19,7 +19,7 @@ function DistancesCalculator() {
         return 1500
     }
 
-    this.leftUpperCornerDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
+    this.leftBorderDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
         if (nameOfTheSystemToAnalyse == "A") return 0
         if (nameOfTheSystemToAnalyse == "B") return 200
         if (nameOfTheSystemToAnalyse == "C") return 400

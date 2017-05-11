@@ -1,10 +1,10 @@
 var configuration = {
     "defaultDistanceBetweenSystems": 50,
-    "distanceFromHorizontalBorder": 10,
+    "distanceFromVerticalBorder": 10,
 }
 
 function DistancesCalculator() {
-    this.leftUpperCornerDistanceBetweenFirstSystemAndSystem = function () {
+    this.leftBorderDistanceBetweenFirstSystemAndSystem = function () {
         return width
     }
 }

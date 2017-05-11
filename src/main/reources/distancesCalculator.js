@@ -32,7 +32,7 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
         var systemPreviousOfSystemToAnalyse = systemPreviousOf(nameOfTheSystemToAnalyse)
 
-        var distanceToPreviousSystem = that.leftUpperCornerDistanceBetweenFirstSystemAndSystem(systemPreviousOfSystemToAnalyse.name())
+        var distanceToPreviousSystem = that.leftBorderDistanceBetweenFirstSystemAndSystem(systemPreviousOfSystemToAnalyse.name())
 
         var value = distanceToPreviousSystem + systemPreviousOfSystemToAnalyse.width() + configuration.defaultDistanceBetweenSystems
 
@@ -49,20 +49,24 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
     this.sequenceDiagramWidth = function () {
         const lastSystemBuilder = lastSystemBuilderIn(systemsBuilder)
 
-        return configuration.distanceFromHorizontalBorder +
-            this.leftUpperCornerDistanceBetweenFirstSystemAndSystem(lastSystemBuilder.name()) +
+        return configuration.distanceFromVerticalBorder +
+            this.leftBorderDistanceBetweenFirstSystemAndSystem(lastSystemBuilder.name()) +
             lastSystemBuilder.width() +
-            configuration.distanceFromHorizontalBorder
+            configuration.distanceFromVerticalBorder
     }
 
-    this.leftUpperCornerDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
+    this.middlePointXCoordinateOfSystem = function (nameOfTheSystem) {
+        return configuration.distanceFromVerticalBorder + this.leftBorderDistanceBetweenFirstSystemAndSystem(nameOfTheSystem) + systemBuilderWithName(nameOfTheSystem).width() / 2
+    }
+
+    this.leftBorderDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
 
         console.log("calculating left upper corner distance from " + firstSystemBuilder.name() + " to " + nameOfTheSystemToAnalyse)
 
         if (distancesCacheMap.has(nameOfTheSystemToAnalyse)) {
-            var value = distancesCacheMap.get(nameOfTheSystemToAnalyse);
-            console.log("Distance to " + nameOfTheSystemToAnalyse + " found in cache " + value)
-            return value
+            var cachedDistance = distancesCacheMap.get(nameOfTheSystemToAnalyse);
+            console.log("Distance to " + nameOfTheSystemToAnalyse + " found in cache " + cachedDistance)
+            return cachedDistance
         }
 
         if (nameOfTheSystemToAnalyse === firstSystemBuilder.name()) {
@@ -75,7 +79,7 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
         var possibleDistances = nameOfTheSystemsBefore(nameOfTheSystemToAnalyse).reduce(function (possibleDistances, aPreviousSystemName) {
 
-            var distanceToAPreviousSystem = that.leftUpperCornerDistanceBetweenFirstSystemAndSystem(aPreviousSystemName)
+            var distanceToAPreviousSystem = that.leftBorderDistanceBetweenFirstSystemAndSystem(aPreviousSystemName)
             var aPreviousSystemHalfDistance = systemBuilderWithName(aPreviousSystemName).width() / 2
             var maxDescriptionLengthDistance = maxDescriptionMessageLengthCalculator.maxDescriptionLengthBetween(aPreviousSystemName, nameOfTheSystemToAnalyse)
             if (maxDescriptionLengthDistance) {
@@ -103,7 +107,7 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
         distancesCacheMap.set(nameOfTheSystemToAnalyse, distance)
 
-        console.log("distance to " + nameOfTheSystemToAnalyse + " is the max value in [" + possibleDistances.join(", ") + "] then " + distance)
+        console.log("distance to " + nameOfTheSystemToAnalyse + " is the max cachedDistance in [" + possibleDistances.join(", ") + "] then " + distance)
 
         return distance
     }

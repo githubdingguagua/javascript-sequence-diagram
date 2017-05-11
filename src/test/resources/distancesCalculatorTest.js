@@ -1,6 +1,6 @@
 var configuration = {
-    "defaultDistanceBetweenSystems": 50,
-    "distanceFromHorizontalBorder": 10,
+    defaultDistanceBetweenSystems: 50,
+    distanceFromVerticalBorder: 10,
 }
 
 function SystemBuilder(name, width) {
@@ -51,9 +51,13 @@ QUnit.test(
             configuration, systemsBuilder, conversationReport, new MaxDescriptionMessageLengthCalculator()
         )
 
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is equals to the default one")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("C"), 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems, "distance from A to C is equals to the default one")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is equals to the default one")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("C"), 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems, "distance from A to C is equals to the default one")
+
+        assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("A"), configuration.distanceFromVerticalBorder + 50, "middlePointXCoordinateOfSystem A")
+        assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateOfSystem B")
+        assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems + 20, "middlePointXCoordinateOfSystem C")
 
     })
 
@@ -78,9 +82,9 @@ QUnit.test(
             configuration, systemsBuilder, conversationReport, new MaxDescriptionMessageLengthCalculator()
         )
 
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is equals to the default one")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("C"), 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems, "distance from A to C is equals to the default one")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is equals to the default one")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("C"), 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems, "distance from A to C is equals to the default one")
 
     })
 
@@ -124,16 +128,16 @@ QUnit.test(
             configuration, systemsBuilder, conversationReport, new MaxDescriptionMessageLengthCalculator()
         )
 
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A is the 0 ")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A is the 0 ")
 
         assert.equal(
-            distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("B"),
+            distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("B"),
             100 + configuration.defaultDistanceBetweenSystems,
             "distance from A to B is equals to the default one"
         )
 
         assert.equal(
-            distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("C"),
+            distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("C"),
             100 + configuration.defaultDistanceBetweenSystems + 10 + maxDescriptionLengthBetweenBC - 20,
             "distance from A to C depends on the longest description message from BC and is not equal to the default one"
         )
@@ -182,9 +186,9 @@ QUnit.test(
             configuration, systemsBuilder, conversationReport, new MaxDescriptionMessageLengthCalculator()
         )
 
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is the default one")
-        assert.equal(distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem("C"), 50 + maxDescriptionLengthBetweenAC - 20, "distance from A to C depends on max description length")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("A"), 0, "distance from A to A")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("B"), 100 + configuration.defaultDistanceBetweenSystems, "distance from A to B is the default one")
+        assert.equal(distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem("C"), 50 + maxDescriptionLengthBetweenAC - 20, "distance from A to C depends on max description length")
 
     }
 )
@@ -213,7 +217,7 @@ QUnit.test(
 
         assert.equal(
             distancesCalculator.sequenceDiagramWidth(),
-            configuration.distanceFromHorizontalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems + 40 + configuration.distanceFromHorizontalBorder,
+            configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems + 40 + configuration.distanceFromVerticalBorder,
             "sequenceDiagramWidth is correct")
     })
 
@@ -243,6 +247,6 @@ QUnit.test(
 
         assert.equal(
             distancesCalculator.sequenceDiagramWidth(),
-            configuration.distanceFromHorizontalBorder + 50 + maxDescriptionLengthForAllSystems + maxDescriptionLengthForAllSystems + 20 + configuration.distanceFromHorizontalBorder,
+            configuration.distanceFromVerticalBorder + 50 + maxDescriptionLengthForAllSystems + maxDescriptionLengthForAllSystems + 20 + configuration.distanceFromVerticalBorder,
             "sequenceDiagramWidth is correct")
     })

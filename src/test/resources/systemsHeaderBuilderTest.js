@@ -3,8 +3,8 @@ var systemBuilderConfiguration = {"marginFromHorizontalBorder": 15, "marginFromV
 var systemsHeaderBuilderConfiguration = {"distanceFromLeftBorder": 10, "distanceFromUpperBorder": 20}
 
 var distancesCalculatorConfiguration = {
-    "defaultDistanceBetweenSystems": 50,
-    "distanceFromHorizontalBorder": 10,
+    defaultDistanceBetweenSystems: 50,
+    distanceFromVerticalBorder: 10,
 }
 
 

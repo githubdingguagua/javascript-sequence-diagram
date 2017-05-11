@@ -17,7 +17,7 @@ function SystemsHeaderBuilder(configuration, systemBuilders, sequenceDiagramId, 
     }
 
     function leftUpperCornerXLocationOfSystem(systemBuilder) {
-        return configuration.distanceFromLeftBorder + distancesCalculator.leftUpperCornerDistanceBetweenFirstSystemAndSystem(systemBuilder.name());
+        return configuration.distanceFromLeftBorder + distancesCalculator.leftBorderDistanceBetweenFirstSystemAndSystem(systemBuilder.name());
     }
 
     function translate(aSystemBuilder, x, y) {
