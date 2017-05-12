@@ -1,5 +1,9 @@
 function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport, sequenceDiagramId, distancesCalculator) {
 
+    var systemNames = systemsBuilder.map(function (sb) {
+        return sb.name()
+    })
+
     var panelWidth = distancesCalculator.sequenceDiagramWidth()
 
     var panelHeight = configuration.distanceBetweenMessages * conversationReport.messages.length + configuration.distanceBetweenMessages
@@ -61,8 +65,29 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
                 .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;")
         }
 
-        function messageArrow(aMessage) {
+        function messageArrow(aMessage, messageIndex) {
+            var x1 = 0, points = "", delta = 10, y1 = (messageIndex + 1) * configuration.distanceBetweenMessages
 
+            function pointAt(x, y) {
+                return points.concat(x).concat(",").concat(y).concat(" ");
+            }
+
+            function messageIsFromLeftToRight(aMessage) {
+                return systemNames.indexOf(aMessage.to) < systemNames.indexOf(aMessage.from)
+            }
+
+            if (messageIsFromLeftToRight(aMessage)) {
+                x1 = distancesCalculator.middlePointXCoordinateOfSystem(aMessage.to)
+            }else{
+                x1 = distancesCalculator.middlePointXCoordinateOfSystem(aMessage.from)
+                delta = -1 * delta
+            }
+
+            points = pointAt(x1 - delta, y1 - delta).pointAt(x1, y1).pointAt(x1 - delta, y1 + delta).pointAt(x1-delta+delta/2,y1).pointAt(x1 - delta, y1 - delta)
+            mainContainer.append("polygon")
+                .attr("points", points)
+                .attr("fill", "#A80036")
+                .attr("style", "stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;")
         }
 
         conversationReport.messages.forEach(function (aMessage, messageIndex) {
