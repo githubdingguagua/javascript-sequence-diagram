@@ -59,6 +59,16 @@ QUnit.test(
         assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateOfSystem B")
         assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems + 20, "middlePointXCoordinateOfSystem C")
 
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems A and B")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "A"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems B and A")
+
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems B and C")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems C and B")
+
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateBetweenSystems A and C")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "A"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateBetweenSystems C and A")
+
+
     })
 
 QUnit.test(

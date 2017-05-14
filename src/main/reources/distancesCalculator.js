@@ -55,6 +55,10 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
             configuration.distanceFromVerticalBorder
     }
 
+    this.middlePointXCoordinateBetweenSystems = function (firstSystem, secondSystem) {
+
+    }
+
     this.middlePointXCoordinateOfSystem = function (nameOfTheSystem) {
         return configuration.distanceFromVerticalBorder + this.leftBorderDistanceBetweenFirstSystemAndSystem(nameOfTheSystem) + systemBuilderWithName(nameOfTheSystem).width() / 2
     }

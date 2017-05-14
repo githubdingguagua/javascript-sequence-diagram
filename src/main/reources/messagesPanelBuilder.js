@@ -63,37 +63,52 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
         }
 
         function messageArrow(aMessage, messageYCoordinate) {
-            function Points(points) {
-                var pointsString = points || ""
-                this.addPoint = function (x, y) {
-                    return new Points(pointsString.concat(x).concat(",").concat(y).concat(" "))
-                }
-                this.asString = function () {
-                    return pointsString
+            var Points = {
+                init: function (points) {
+                    this.pointsString = points || ""
+                    return this
+                },
+                addPoint: function (x, y) {
+                    return Points.init(this.pointsString.concat(x).concat(",").concat(y).concat(" "))
+                },
+                asString: function () {
+                    return this.pointsString
                 }
             }
 
-            var initialXCoordinate = distancesCalculator.middlePointXCoordinateOfSystem(aMessage.to), delta = 4, points = ""
+            var initialXCoordinate = distancesCalculator.middlePointXCoordinateOfSystem(aMessage.to), delta = 4
 
-            function messageIsFromLeftToRight(aMessage) {
-                return systemNames.indexOf(aMessage.to) > systemNames.indexOf(aMessage.from)
+            function messageIsFromRightToLeft(aMessage) {
+                return systemNames.indexOf(aMessage.from) > systemNames.indexOf(aMessage.to)
             }
 
-            if (!messageIsFromLeftToRight(aMessage)) {
+            if (messageIsFromRightToLeft(aMessage)) {
                 delta = -1 * delta
             }
 
             mainContainer
                 .append("polygon")
-                .attr("points", new Points().addPoint(initialXCoordinate - delta, messageYCoordinate - delta).addPoint(initialXCoordinate, messageYCoordinate).addPoint(initialXCoordinate - delta, messageYCoordinate + delta).addPoint(initialXCoordinate - delta + delta / 2, messageYCoordinate).addPoint(initialXCoordinate - delta, messageYCoordinate - delta).asString())
+                .attr("points", Object.create(Points).init().addPoint(initialXCoordinate - delta, messageYCoordinate - delta).addPoint(initialXCoordinate, messageYCoordinate).addPoint(initialXCoordinate - delta, messageYCoordinate + delta).addPoint(initialXCoordinate - delta + delta / 2, messageYCoordinate).addPoint(initialXCoordinate - delta, messageYCoordinate - delta).asString())
                 .attr("fill", "#A80036")
                 .attr("style", "stroke: #A80036; stroke-width: 1.0; ")
         }
 
+        function messageText(aMessage, messageLineYCoordinate) {
+
+            mainContainer.append("text")
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "14px")
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .attr("x", distancesCalculator.middlePointXCoordinateBetweenSystems(aMessage.to,aMessage.from))
+                .attr("y", messageLineYCoordinate - 10)
+        }
+
         conversationReport.messages.forEach(function (aMessage, messageIndex) {
-            var messageYCoordinate = (messageIndex + 1) * configuration.distanceBetweenMessages
-            messageLine(aMessage, messageYCoordinate);
-            messageArrow(aMessage, messageYCoordinate)
+            var messageLineYCoordinate = (messageIndex + 1) * configuration.distanceBetweenMessages
+            messageLine(aMessage, messageLineYCoordinate)
+            messageArrow(aMessage, messageLineYCoordinate)
+            messageText(aMessage, messageLineYCoordinate)
         })
 
     }
