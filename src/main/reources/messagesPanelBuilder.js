@@ -94,14 +94,14 @@ function MessagesPanelBuilder(configuration, systemsBuilder, conversationReport,
         }
 
         function messageText(aMessage, messageLineYCoordinate) {
-
             mainContainer.append("text")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "14px")
                 .attr("text-anchor", "middle")
                 .attr("alignment-baseline", "middle")
-                .attr("x", distancesCalculator.middlePointXCoordinateBetweenSystems(aMessage.to,aMessage.from))
-                .attr("y", messageLineYCoordinate - 10)
+                .attr("x", distancesCalculator.middlePointXCoordinateBetweenSystems(aMessage.to, aMessage.from))
+                .attr("y", messageLineYCoordinate - 8)
+                .text("This is a test")
         }
 
         conversationReport.messages.forEach(function (aMessage, messageIndex) {

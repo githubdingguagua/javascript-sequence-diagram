@@ -55,7 +55,17 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
             configuration.distanceFromVerticalBorder
     }
 
-    this.middlePointXCoordinateBetweenSystems = function (firstSystem, secondSystem) {
+    this.middlePointXCoordinateBetweenSystems = function (aSystem, anotherSystem) {
+
+        var firstSystemIsOnTheLeft = function (aSystem, anotherSystem) {
+            return conversationReport.systemNames.indexOf(aSystem) < conversationReport.systemNames.indexOf(anotherSystem)
+        }
+
+        var calculateMiddlePointBetweenSystems = function (systemOnTheLeft, systemOnTheRight) {
+            return that.middlePointXCoordinateOfSystem(systemOnTheLeft) + (that.middlePointXCoordinateOfSystem(systemOnTheRight) - that.middlePointXCoordinateOfSystem(systemOnTheLeft)) / 2
+        }
+
+        return firstSystemIsOnTheLeft(aSystem, anotherSystem) ? calculateMiddlePointBetweenSystems(aSystem, anotherSystem) : calculateMiddlePointBetweenSystems(anotherSystem, aSystem)
 
     }
 
@@ -85,7 +95,7 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
             var distanceToAPreviousSystem = that.leftBorderDistanceBetweenFirstSystemAndSystem(aPreviousSystemName)
             var aPreviousSystemHalfDistance = systemBuilderWithName(aPreviousSystemName).width() / 2
-            var maxDescriptionLengthDistance = maxDescriptionMessageLengthCalculator.maxDescriptionLengthBetween(aPreviousSystemName, nameOfTheSystemToAnalyse)
+            var maxDescriptionLengthDistance = maxDescriptionMessageLengthCalculator.maxDescriptionLengthBetweenSystems(aPreviousSystemName, nameOfTheSystemToAnalyse)
             if (maxDescriptionLengthDistance) {
                 var systemToAnalyseHalfDistanceDistance = systemBuilderWithName(nameOfTheSystemToAnalyse).width() / 2
                 var possibleDistance = distanceToAPreviousSystem + aPreviousSystemHalfDistance + maxDescriptionLengthDistance - systemToAnalyseHalfDistanceDistance

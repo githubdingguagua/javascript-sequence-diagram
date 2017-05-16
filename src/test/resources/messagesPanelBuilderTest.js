@@ -16,9 +16,8 @@ var systemsBuilder = [new SystemBuilder("A", 50 + 50), new SystemBuilder("B", 50
 function DistancesCalculator() {
 
     this.sequenceDiagramWidth = function () {
-        return 100 + 400 + 50 + 50 + 100
+        return 10 + 400 + 50 + 50 + 10
     }
-
 
     this.leftBorderDistanceBetweenFirstSystemAndSystem = function (nameOfTheSystemToAnalyse) {
         if (nameOfTheSystemToAnalyse == "A") return 0
@@ -27,9 +26,20 @@ function DistancesCalculator() {
     }
 
     this.middlePointXCoordinateOfSystem = function (nameOfTheSystemToAnalyse) {
-        if (nameOfTheSystemToAnalyse == "A") return 100 + 50
-        if (nameOfTheSystemToAnalyse == "B") return 100 + 200 + 50
-        if (nameOfTheSystemToAnalyse == "C") return 100 + 400 + 50
+        if (nameOfTheSystemToAnalyse == "A") return 10 + 50
+        if (nameOfTheSystemToAnalyse == "B") return 10 + this.leftBorderDistanceBetweenFirstSystemAndSystem("B") + 50
+        if (nameOfTheSystemToAnalyse == "C") return 10 + this.leftBorderDistanceBetweenFirstSystemAndSystem("C") + 50
+    }
+
+    function systemsAre(firstSystem, secondSystem, expectedFirstSystem, expectedSecondSystem) {
+        return (firstSystem == expectedFirstSystem && secondSystem == expectedSecondSystem ) ||
+            (firstSystem == expectedSecondSystem && secondSystem == expectedFirstSystem );
+    }
+
+    this.middlePointXCoordinateBetweenSystems = function (firstSystem, secondSystem) {
+        if (systemsAre(firstSystem, secondSystem, "A", "B")) return (this.middlePointXCoordinateOfSystem("A") + (this.middlePointXCoordinateOfSystem("B") - this.middlePointXCoordinateOfSystem("A") ) / 2)
+        if (systemsAre(firstSystem, secondSystem, "B", "C")) return (this.middlePointXCoordinateOfSystem("B") + (this.middlePointXCoordinateOfSystem("C") - this.middlePointXCoordinateOfSystem("B") ) / 2)
+        if (systemsAre(firstSystem, secondSystem, "A", "C")) return (this.middlePointXCoordinateOfSystem("A") + (this.middlePointXCoordinateOfSystem("C") - this.middlePointXCoordinateOfSystem("A") ) / 2)
     }
 
 }

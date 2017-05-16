@@ -27,7 +27,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "C") {
                     return defaultDistanceBetweenACMiddlePoints - 1
                 }
@@ -59,15 +59,14 @@ QUnit.test(
         assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateOfSystem B")
         assert.equal(distancesCalculator.middlePointXCoordinateOfSystem("C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems + 20, "middlePointXCoordinateOfSystem C")
 
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems A and B")
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "A"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems B and A")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "B"), configuration.distanceFromVerticalBorder + 50 + defaultDistanceBetweenABMiddlePoints / 2, "middlePointXCoordinateBetweenSystems A and B")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "A"), configuration.distanceFromVerticalBorder + 50 + defaultDistanceBetweenABMiddlePoints / 2, "middlePointXCoordinateBetweenSystems B and A")
 
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems B and C")
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "B"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 20 + configuration.defaultDistanceBetweenSystems / 2, "middlePointXCoordinateBetweenSystems C and B")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("B", "C"), configuration.distanceFromVerticalBorder + 50 + 50 + configuration.defaultDistanceBetweenSystems + 10  + defaultDistanceBetweenBCMiddlePoints / 2, "middlePointXCoordinateBetweenSystems B and C")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "B"), configuration.distanceFromVerticalBorder + 50 + 50 + configuration.defaultDistanceBetweenSystems + 10  + defaultDistanceBetweenBCMiddlePoints / 2, "middlePointXCoordinateBetweenSystems C and B")
 
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "C"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateBetweenSystems A and C")
-        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "A"), configuration.distanceFromVerticalBorder + 100 + configuration.defaultDistanceBetweenSystems + 10, "middlePointXCoordinateBetweenSystems C and A")
-
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("A", "C"), configuration.distanceFromVerticalBorder + 50 + defaultDistanceBetweenACMiddlePoints / 2, "middlePointXCoordinateBetweenSystems A and C")
+        assert.equal(distancesCalculator.middlePointXCoordinateBetweenSystems("C", "A"), configuration.distanceFromVerticalBorder + 50 + defaultDistanceBetweenACMiddlePoints / 2, "middlePointXCoordinateBetweenSystems C and A")
 
     })
 
@@ -77,7 +76,7 @@ QUnit.test(
     function (assert) {
 
         function MaxDescriptionMessageLengthCalculator() {
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 return undefined
             }
         }
@@ -114,7 +113,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "B") {
                     return maxDescriptionLengthBetweenAB
                 }
@@ -169,7 +168,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "B") {
                     return defaultDistanceBetweenABMiddlePoints
                 }
@@ -210,7 +209,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 return 0
             }
         }
@@ -240,7 +239,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetween = function (firstSystemName, secondSystemName) {
+            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
                 return maxDescriptionLengthForAllSystems
             }
         }

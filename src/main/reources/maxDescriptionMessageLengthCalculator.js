@@ -9,26 +9,24 @@ function MaxDescriptionMessageLengthCalculator(conversation) {
     }
 
     function calculateMaxDescriptionLengthBetweenSystems(conversation) {
-        return conversation.reduce(function (maxDescriptionLengthBetweenSystemsMap, aMessage) {
+        return conversation.reduce(function (maxDescriptionLengthBetweenSystemsSystemsMap, aMessage) {
 
-                var theMessageKey = sortedMessageKey(aMessage)
+            var theMessageKey = sortedMessageKey(aMessage)
 
-                var theDescriptionWithMaxLength = maxDescriptionLengthBetweenSystemsMap.get(theMessageKey)
+            var theDescriptionWithMaxLength = maxDescriptionLengthBetweenSystemsSystemsMap.get(theMessageKey)
 
-                if (!theDescriptionWithMaxLength || theDescriptionWithMaxLength.length < aMessage.description.length) {
-                    maxDescriptionLengthBetweenSystemsMap.set(theMessageKey, aMessage.description)
-                }
+            if (!theDescriptionWithMaxLength || theDescriptionWithMaxLength.length < aMessage.description.length) {
+                maxDescriptionLengthBetweenSystemsSystemsMap.set(theMessageKey, aMessage.description)
+            }
 
-                return maxDescriptionLengthBetweenSystemsMap
-            }, new Map()
-        )
-
+            return maxDescriptionLengthBetweenSystemsSystemsMap
+        }, new Map())
     }
 
-    var maxDescriptionLengthBetweenSystemsMap = calculateMaxDescriptionLengthBetweenSystems(conversation)
+    var maxDescriptionLengthBetweenSystemsSystemsMap = calculateMaxDescriptionLengthBetweenSystems(conversation)
 
     this.maxDescriptionLengthBetweenSystems = function (firstSystem, secondSystem) {
-        return maxDescriptionLengthBetweenSystemsMap.get(sortedMessageKey({from: firstSystem, to: secondSystem}))
+        return maxDescriptionLengthBetweenSystemsSystemsMap.get(sortedMessageKey({from: firstSystem, to: secondSystem}))
     }
 
 }
