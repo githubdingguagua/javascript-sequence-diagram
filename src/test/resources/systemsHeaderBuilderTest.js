@@ -40,7 +40,7 @@ var conversationReport = {
 }
 
 function MaxDescriptionMessageLengthCalculator() {
-    this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+    this.calculate = function (firstSystemName, secondSystemName) {
         if (firstSystemName === "ThisIsASystem" && secondSystemName === "This_is_the_third_system") {
             return 600
         }

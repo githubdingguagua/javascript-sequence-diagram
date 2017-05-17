@@ -1,4 +1,4 @@
-QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias the messages are mapped correctly",
+QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias then conversationRepor is correctly",
     function (assert) {
 
         var conversationToBeConverted = [
@@ -17,10 +17,10 @@ QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias th
                 {"from": "B", "to": "C", "description": "bc"},
                 {"from": "C", "to": "D", "description": "cd"},
                 {"from": "E", "to": "F", "description": "ef"}
-            ]
+            ], "Conversation report is correct"
         )
 
-        assert.deepEqual(actualConversationReport.systemNames, ["A", "B", "C", "D", "E", "F"])
+        assert.deepEqual(actualConversationReport.systemNames, ["A", "B", "C", "D", "E", "F"], "System names are correct")
 
     }
 )

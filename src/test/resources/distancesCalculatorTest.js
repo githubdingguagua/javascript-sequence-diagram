@@ -27,7 +27,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "C") {
                     return defaultDistanceBetweenACMiddlePoints - 1
                 }
@@ -76,7 +76,7 @@ QUnit.test(
     function (assert) {
 
         function MaxDescriptionMessageLengthCalculator() {
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 return undefined
             }
         }
@@ -113,7 +113,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "B") {
                     return maxDescriptionLengthBetweenAB
                 }
@@ -168,7 +168,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 if (firstSystemName === "A" && secondSystemName === "B") {
                     return defaultDistanceBetweenABMiddlePoints
                 }
@@ -209,7 +209,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 return 0
             }
         }
@@ -239,7 +239,7 @@ QUnit.test(
 
         function MaxDescriptionMessageLengthCalculator() {
 
-            this.maxDescriptionLengthBetweenSystems = function (firstSystemName, secondSystemName) {
+            this.calculate = function (firstSystemName, secondSystemName) {
                 return maxDescriptionLengthForAllSystems
             }
         }

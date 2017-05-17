@@ -1,4 +1,4 @@
-function MaxDescriptionMessageLengthCalculator(conversation) {
+function MaxDescriptionMessageCalculator(conversation) {
 
     function key(firstPart, secondPart) {
         return firstPart + "_@_" + secondPart
@@ -25,7 +25,7 @@ function MaxDescriptionMessageLengthCalculator(conversation) {
 
     var maxDescriptionLengthBetweenSystemsSystemsMap = calculateMaxDescriptionLengthBetweenSystems(conversation)
 
-    this.maxDescriptionLengthBetweenSystems = function (firstSystem, secondSystem) {
+    this.calculateDescriptionBetween = function (firstSystem, secondSystem) {
         return maxDescriptionLengthBetweenSystemsSystemsMap.get(sortedMessageKey({from: firstSystem, to: secondSystem}))
     }
 
