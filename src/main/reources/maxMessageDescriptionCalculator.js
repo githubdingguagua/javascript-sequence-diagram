@@ -25,7 +25,7 @@ function MaxDescriptionMessageCalculator(conversation) {
 
     var maxDescriptionLengthBetweenSystemsSystemsMap = calculateMaxDescriptionLengthBetweenSystems(conversation)
 
-    this.calculateDescriptionBetween = function (firstSystem, secondSystem) {
+    this.calculate = function (firstSystem, secondSystem) {
         return maxDescriptionLengthBetweenSystemsSystemsMap.get(sortedMessageKey({from: firstSystem, to: secondSystem}))
     }
 

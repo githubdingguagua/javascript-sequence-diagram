@@ -1,4 +1,4 @@
-QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias then conversationRepor is correctly",
+QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias then conversationReport is correctly",
     function (assert) {
 
         var conversationToBeConverted = [
@@ -8,9 +8,9 @@ QUnit.test("given 4 messages 2 with a simple alias and 2 with a compost alias th
             {"from": "E", "to": {"url": "u", "alias": "F", "description": "description1"}, "description": "ef"}
         ]
 
-        var calculator = new FromConversationToConversationReportMapper()
+        var conversationMapper = new FromConversationToConversationReportMapper()
 
-        var actualConversationReport = calculator.map(conversationToBeConverted)
+        var actualConversationReport = conversationMapper.map(conversationToBeConverted)
 
         assert.deepEqual(actualConversationReport.conversation, [
                 {"from": "A", "to": "B", "description": "ab"},

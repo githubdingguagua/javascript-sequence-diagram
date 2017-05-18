@@ -2,7 +2,7 @@ function messageLengthCalculator(maxDescriptionMessageCalculator, textLengthCalc
 
     return {
         calculate: function (firstSystem, secondSystem) {
-            return textLengthCalculator.sizeof(maxDescriptionMessageCalculator.calculateDescriptionBetween(firstSystem, secondSystem)).width
+            return textLengthCalculator.sizeof(maxDescriptionMessageCalculator.calculate(firstSystem, secondSystem)).width
         }
     }
 
