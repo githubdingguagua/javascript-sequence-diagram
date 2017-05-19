@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DWP cucumber report</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="css/cucumber-table.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="blue/css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="blue/css/skin/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="blue/css/960.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="blue/css/text.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/w2ui-1.4.2.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery.mThumbnailScroller.css">
+    <link rel="stylesheet" href="css/jquery.spin.css"/>
+
+    <link rel="shortcut icon" href="blue/favicon.ico"/>
+
+    <script src="ace-src/ace.js"></script>
+    <script src="jquery-2.1.4.js"></script>
+    <script src="jquery-ui-1.11.4.min.js"></script>
+    <script src="jquery.spin.js"></script>
+    <script src="jquery.mThumbnailScroller.js"></script>
+    <script src="lunr.js"></script>
+    <script src="w2ui-1.4.2.min.js"></script>
+
+    <script src="artifactLoader.js"></script>
+    <script src="bodyIndexer.js"></script>
+    <script src="bodySearchResultFormatter.js"></script>
+    <script src="bodySearchResultHighlighter.js"></script>
+    <script src="conversationAdapter.js"></script>
+    <script src="conversationMessagesRenderer.js"></script>
+    <script src="conversationRenderer.js"></script>
+    <script src="csdUtil.js"></script>
+    <script src="featureView.js"></script>
+    <script src="featureHtmlReportBuilder.js"></script>
+    <script src="htmlIdManager.js"></script>
+    <script src="loader.js"></script>
+    <script src="menuRenderer.js"></script>
+    <script src="messagesSupport.js"></script>
+    <script src="namingUtil.js"></script>
+    <script src="screenshotsIndexer.js"></script>
+    <script src="searcher.js"></script>
+    <script src="searchResultFormatter.js"></script>
+    <script src="searchResultHighlighter.js"></script>
+    <script src="searchResultSorter.js"></script>
+    <script src="searchResultLabelUtil.js"></script>
+    <script src="screenshotNavigationRenderer.js"></script>
+    <script src="screenshotSearchResultFormatter.js"></script>
+    <script src="screenshotSearchResultHighlighter.js"></script>
+    <script src="screenshotThumbnailNavigator.js"></script>
+    <script src="stepConversationAdapter.js"></script>
+    <script src="smartBodyIndexer.js"></script>
+    <script src="urlFormatter.js"></script>
+    <script src="testsMenu.js"></script>
+
+</head>
+<body style="margin: 0px;">
+  <div id="layout" style="position: absolute; width: 100%; height: 100%;"></div>
+<script type="text/javascript">
+$(function () {
+
+    var namingUtil = new NamingUtil();
+
+    var htmlIdManager = new HtmlIdManager();
+
+    var loader = new Loader();
+
+    var artifactLoader = new ArtifactLoader(loader, namingUtil);
+
+    var searchResultHighlighter = createSearchResultHighlighter()
+
+    var smartBodyIndexer = new SmartBodyIndexer(namingUtil, testsMenu.details)
+    var screenshotsIndexer = new ScreenshotsIndexer(namingUtil, testsMenu.details, new UrlFormatter())
+    var searchResultLabelUtil = new SearchResultLabelUtil()
+
+    function createSearchResultHighlighter(){
+        var colorToBeHighlightedWith = "#0040FF"
+        return new SearchResultHighlighter(new BodySearchResultHighlighter(colorToBeHighlightedWith),
+                                           new ScreenshotSearchResultHighlighter(colorToBeHighlightedWith, htmlIdManager)
+               )
+    }
+
+    var searcher = new Searcher(
+        smartBodyIndexer,
+        screenshotsIndexer,
+        new SearchResultSorter()
+    )
+
+    searcher.init();
+
+    var searchResultFormatter = new SearchResultFormatter(
+        new BodySearchResultFormatter(smartBodyIndexer, searchResultLabelUtil),
+        new ScreenshotSearchResultFormatter(smartBodyIndexer, screenshotsIndexer, searchResultLabelUtil, htmlIdManager)
+    )
+
+    var menuRenderer = new MenuRenderer(testsMenu);
+
+    var csdUtil = new CsdUtil(window.location, testsMenu)
+
+    document.title = csdUtil.pageTitle();
+
+    var pstyle = 'border: 1px solid #dfdfdf; padding: 5px;';
+
+    var originalFeatureMenu = menuRenderer.toMenuFormat();
+
+    var utilToolbar = {
+            items: [
+                        { type: 'button',  id: 'show-all-features-button-id', text: csdUtil.showAllFeaturesText(), img: 'icon-page', disabled: true},
+                        { type: 'break',  id: 'break0' },
+                        { type: 'button',  id: 'load-sequence-diagram-link', text: csdUtil.calculateReloadPageLinkText(), img: 'icon-page', disabled: csdUtil.sequenceDiagramSupportDisabled()},
+                        { type: 'spacer' },
+                        { type: 'button',  id: 'all-projects-report', text: csdUtil.multipleProjectsReportText(), img: 'icon-page', disabled: !csdUtil.accessibleFromMultipleReportsPage()}
+                   ],
+            onClick: function (event) {
+              if (event.target == 'load-sequence-diagram-link') {
+                 $(location).attr('href', csdUtil.calculateReloadPageLinkHref())
+              } else if (event.target == 'all-projects-report') {
+                 $(location).attr('href', csdUtil.multipleReportsHomeUrl())
+              }else {
+                  w2ui.layout.show('left');
+                  w2ui.layout.show('top');
+                  w2ui.layout.show('bottom');
+                  var toolbarItem = w2ui['layout'].get('top').toolbar.items[0];
+                  toolbarItem.text = csdUtil.showAllFeaturesText();
+                  toolbarItem.disabled = true;
+                  w2ui.layout.get('top').toolbar.refresh();
+              }
+            }
+    };
+                
+    var searchForm = "<div id='searchForm'>"+
+                        "<div class='w2ui-page page-0'>"+
+                                "<div class='ui-widget'>" +
+                                    "<label id='filterLabel'>Filter : </label> "+
+                                    "<input type='radio' id='typeOfSearchId' name='typeOfSearch' value='freeTextSearch' checked='checked'/> Free Search " +
+                                    "<input type='radio' name='typeOfSearch' value='pageTitleSearch'/> Page Title " +
+                                    "<input type='radio' name='typeOfSearch' value='pageUrlSearch'/> Page url " +
+                                    "<div>" +
+                                      "<input name='wordsToBeFound' type='text' maxlength='250' size='120'/>"+
+                                      "<span class='search-button-container'>" +
+                                        "<button class='btn' name='search'>Search</button>"+
+                                        "<button class='btn' name='clear'>Clear</button>"+
+                                        "<button class='btn' name='toggle'>Expand / Collapse</button>" +
+                                      "</span>"+
+                                    "</div>" +
+                                "</div>"+
+                        "</div>"+
+                      "</div>"+
+                      "<div id='searchResult'></div>";
+
+    $('#layout').w2layout({
+        name: 'layout',
+        panels: [
+            { type: 'top', size: 30, resizable: false, toolbar: utilToolbar } ,
+            { type: 'left', size: '100%', resizable: true, style: pstyle + 'border-top: 0px;', content: ''},
+            { type: 'main', resizable: true, style: pstyle, content: ''},
+            { type: 'bottom', size: 110, resizable: true, style: pstyle + 'border-top: 0px;', content:searchForm }
+        ]
+    });
+
+  w2ui.layout.hide('main');
+
+  var showSequenceDiagram = csdUtil.hasPageBeenLoadedToShowSequenceDiagram();
+
+  var conversationMessagesRenderer =  new ConversationMessagesRenderer(showSequenceDiagram)
+
+  var conversationRenderer = new ConversationRenderer(namingUtil, htmlIdManager, new ScreenshotNavigationRenderer(htmlIdManager), conversationMessagesRenderer)
+
+  var featureView = new FeatureView(loader,
+                                    w2ui.layout,
+                                    namingUtil,
+                                    csdUtil,
+                                    searchResultHighlighter,
+                                    artifactLoader,
+                                    new MessagesSupport(namingUtil, htmlIdManager, conversationMessagesRenderer),
+                                    conversationRenderer,
+                                    new ScreenshotThumbnailNavigator(htmlIdManager),
+                                    new FeatureHtmlReportBuilder(conversationRenderer, artifactLoader, new ConversationAdapter(new StepConversationAdapter()))
+  )
+
+  w2ui.layout.content('left', $().w2sidebar({
+    name: 'sidebar',
+    topHTML: menuRenderer.toMenuSummary(),
+    nodes: [ { id: 'tests-menu',
+                text: 'Click here to Open/Close feature list',
+                expanded: true,
+                group: true,
+                nodes: originalFeatureMenu
+           } ],
+    onClick: function (event) {
+      featureView.showFeature(event);
+    }
+  }));
+    
+  $('#searchForm').w2form({
+        name  : 'form',
+        fields: [
+            { field: 'wordsToBeFound',
+              type: 'text'
+            },
+            { field: 'typeOfSearch',
+              type: 'radio'
+            }
+        ],
+        onChange: function (event) {
+            var theSearchingForm = w2ui['form']
+            if (event.target == 'typeOfSearch'){
+                if ( event.value_new == 'pageUrlSearch'){
+                    $('#wordsToBeFound').w2field('enum', {
+                        items: screenshotsIndexer.listOfUrls(),
+                        max:1
+                    });
+                }else if (event.value_new == 'pageTitleSearch'){
+                    $('#wordsToBeFound').w2field('enum', {
+                        items: screenshotsIndexer.listOfTitles(),
+                        max:1
+                    });
+                }else if (event.value_new == 'freeTextSearch'){
+                    function removeW2uiPrepopulatedList(){
+                        $('.w2ui-list').remove()
+                        $('#wordsToBeFound').removeAttr('style').removeAttr('tabindex').removeAttr('class')
+                    }
+                    removeW2uiPrepopulatedList()
+                    theSearchingForm.set('wordsToBeFound', { type: 'text' } )
+                }
+
+                theSearchingForm.record['typeOfSearch'] = event.value_new
+                theSearchingForm.record['wordsToBeFound'] = ''
+                w2ui['form'].refresh();
+            }
+        },
+        actions: {
+            search: function () {
+
+                function calculateWordsToBeFound(){
+                    if ($('#wordsToBeFound').data('selected') == undefined || $('#wordsToBeFound').data('selected').length == 0 ){
+                        return $('#wordsToBeFound').val()
+                    }else{
+                        return $('#wordsToBeFound').data('selected')[0].text
+                    }
+                }
+
+                var wordsToBeFoundText = calculateWordsToBeFound();
+
+                if (wordsToBeFoundText == ""){
+                    return
+                }
+
+                var searcherResult = searcher.search( wordsToBeFoundText )
+
+                $("#searchResult").replaceWith("<div id='searchResult'>" + searchResultFormatter.format(searcherResult, w2ui.sidebar ) + "</div>");
+
+                searchResultFormatter.makeIdClickable(featureView)
+
+            },
+            clear: function (data) {
+                w2ui.layout.set('bottom', { size: 110 });
+                function resetWordsToBeFound(){
+                    if ($('#wordsToBeFound').data('selected') != undefined){
+                        $('.w2ui-list-remove').click()
+                    }else{
+                        $('#wordsToBeFound').val('')
+                    }
+                }
+                resetWordsToBeFound()
+                $("#searchResult").replaceWith("<div id='searchResult'></div>");
+            },
+            toggle: function () {
+
+              if (w2ui.layout.get('bottom').size < 150) {
+                w2ui.layout.set('bottom', { size: 450 });
+              } else {
+                w2ui.layout.set('bottom', { size: 110 });
+              }
+
+            }
+        }
+    });
+});
+
+</script>
+</body>
+</html>

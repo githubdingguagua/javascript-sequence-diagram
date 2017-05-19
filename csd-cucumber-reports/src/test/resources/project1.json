@@ -1,0 +1,206 @@
+{
+  "id":"account-holder-withdraws-cash",
+  "tags":[
+    {
+      "name":"@super",
+      "line":1
+    }
+  ],
+  "description":"As a Account Holder\nI want to withdraw cash from an ATM\nSo that I can get money when the bank is closed",
+  "name":"Account Holder withdraws cash",
+  "keyword":"Feature",
+  "line":2,
+  "elements":[
+    {
+      "id": "activate-credit-card",
+      "description":"",
+      "name":"Activate Credit Card",
+      "keyword":"Background",
+      "line":7,
+      "steps":[
+        {
+          "result":{
+            "duration":107447000,
+            "status":"passed"
+          },
+          "name":"I have a new credit card",
+          "keyword":"Given ",
+          "line":8,
+          "match":{
+            "location":"ATMScenario.I_have_a_new_credit_card()"
+          }
+        },
+        {
+          "result":{
+            "duration":16000,
+            "status":"passed"
+          },
+          "name":"I confirm my pin number",
+          "keyword":"When ",
+          "line":9,
+          "match":{
+            "location":"ATMScenario.I_confirm_my_pin_number()"
+          }
+        },
+        {
+          "result":{
+            "duration":14000,
+            "status":"passed"
+          },
+          "name":"the card should be activated",
+          "keyword":"Then ",
+          "line":10,
+          "match":{
+            "location":"ATMScenario.the_card_should_be_activated()"
+          }
+        }
+      ],
+      "type":"background"
+    },
+    {
+      "id":"account-holder-withdraws-cash;account-has-\u0027sufficient-funds\u0027;;2",
+      "tags":[
+        {
+          "name":"@fast",
+          "line":12
+        },
+        {
+          "name":"@super",
+          "line":1
+        },
+        {
+          "name":"@checkout",
+          "line":12
+        }
+      ],
+      "description":"",
+      "name":"Account has \u0027sufficient funds\u0027",
+      "keyword":"Scenario Outline",
+      "line":24,
+      "steps":[
+        {
+          "result":{
+            "duration":996000,
+            "status":"passed"
+          },
+          "name":"the account balance is 100",
+          "keyword":"Given ",
+          "line":14,
+          "match":{
+            "arguments":[
+              {
+                "val":"100",
+                "offset":23
+              }
+            ],
+            "location":"ATMScenario.createAccount(int)"
+          },
+          "output": ["\u003cdiv\u003esome other text\u003c/div\u003e","<div>wooops</div>"],
+          "matchedColumns":[0]
+        },
+        {
+          "result":{
+            "duration":30000,
+            "status":"passed"
+          },
+          "name":"the card is valid",
+          "keyword":"And ",
+          "line":15,
+          "match":{
+            "location":"ATMScenario.createCreditCard()"
+          }
+        },
+        {
+          "result":{
+            "duration":58000,
+            "status":"passed"
+          },
+          "name":"the machine contains 100",
+          "keyword":"And ",
+          "line":16,
+          "match":{
+            "arguments":[
+              {
+                "val":"100",
+                "offset":21
+              }
+            ],
+            "location":"ATMScenario.createATM(int)"
+          },
+          "matchedColumns":[1]
+        },
+        {
+          "result":{
+            "duration":42000,
+            "status":"passed"
+          },
+          "name":"the Account Holder requests 10",
+          "keyword":"When ",
+          "line":17,
+          "match":{
+            "arguments":[
+              {
+                "val":"10",
+                "offset":28
+              }
+            ],
+            "location":"ATMScenario.requestMoney(int)"
+          },
+          "matchedColumns":[2]
+        },
+        {
+          "result":{
+            "duration":3220000,
+            "status":"passed"
+          },
+          "name":"the ATM should dispense 10",
+          "keyword":"Then ",
+          "line":18,
+          "match":{
+            "arguments":[
+              {
+                "val":"10",
+                "offset":24
+              }
+            ],
+            "location":"ATMScenario.checkMoney(int)"
+          },
+          "matchedColumns":[3]
+        },
+        {
+          "result":{
+            "duration":65000,
+            "status":"passed"
+          },
+          "name":"the account balance should be 90",
+          "keyword":"And ",
+          "line":19,
+          "match":{
+            "arguments":[
+              {
+                "val":"90",
+                "offset":30
+              }
+            ],
+            "location":"ATMScenario.checkBalance(int)"
+          },
+          "matchedColumns":[4]
+        },
+        {
+          "result":{
+            "duration":20000,
+            "status":"passed"
+          },
+          "name":"the card should be returned",
+          "keyword":"And ",
+          "line":20,
+          "match":{
+            "location":"20"
+          }
+        }
+      ],
+      "type":"scenario"
+    }
+  ],
+  "uri":"com/example/ATM.feature"
+}

@@ -1,0 +1,4 @@
+serviceName: "my-micro-service"
+
+firstService: "http://localhost:8050/first"
+niceAndCoolService: "http://localhost:8070/second"

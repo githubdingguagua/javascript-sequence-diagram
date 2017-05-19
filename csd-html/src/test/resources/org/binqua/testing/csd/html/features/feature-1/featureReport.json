@@ -1,0 +1,36 @@
+{
+  "id": "feature-1",
+  "title": "feature-1 title",
+  "scenarios": [
+    {
+      "key": "background",
+      "id": "scenario-2",
+      "title": "house ball dog",
+      "steps": [
+        {
+          "key": "Given",
+          "text": "we are unhappy"
+        },
+        {
+          "key": "When",
+          "text": "we looks very unhappy"
+        }
+      ]
+    },
+    {
+      "key": "scenario",
+      "id": "scenario-3",
+      "title": "blocked could be a nice word",
+      "steps": [
+        {
+          "key": "Given",
+          "text": "My microservice is running scenario 0"
+        },
+        {
+          "key": "When",
+          "text": "I call the status page scenario 0"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "feature-0",
+  "title": "feature-0 title",
+  "scenarios": [
+    {
+      "key": "background",
+      "id": "scenario-0",
+      "title": "a background 0",
+      "steps": [
+        {
+          "id": "step-0",
+          "key": "Given",
+          "text": "we are happy"
+        },
+        {
+          "id": "step-1",
+          "key": "When",
+          "text": "we looks very happy"
+        }
+      ]
+    },
+    {
+      "key": "scenario",
+      "id": "scenario-1",
+      "title": "A claimant is blocked",
+      "steps": [
+        {
+          "id": "step-2",
+          "key": "Given",
+          "text": "an happy user"
+        },
+        {
+          "id": "step-3",
+          "key": "When",
+          "text": "I call the status page scenario 1"
+        },
+        {
+          "id": "step-4",
+          "key": "When",
+          "text": "I call the status page scenario 1 step4"
+        }
+      ]
+    }
+  ]
+}

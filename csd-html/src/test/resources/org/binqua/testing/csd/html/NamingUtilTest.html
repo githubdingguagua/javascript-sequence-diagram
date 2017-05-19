@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit basic example</title>
+  <link rel="stylesheet" href="qunit-1.23.1.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.23.1.js"></script>
+<script src="jquery-2.1.4.js"></script>
+<script src="namingUtil.js"></script>
+<script>
+
+    var namingUtil = new NamingUtil();
+
+    test("featureReport file locations is correct", function () {
+        equal("features/featureToBeShown/featureReport.json", namingUtil.featureReport("featureToBeShown"));
+    });
+
+    test("feature index file locations is correct", function () {
+        equal("features/featureToBeShown/index.html", namingUtil.featureIndexFile("featureToBeShown"));
+    });
+
+    test("feature conversation file locations is correct", function () {
+        equal("features/featureToBeShown/conversation.json", namingUtil.featureConversationFile("featureToBeShown"));
+    });
+
+    test("thumbnail file locations is correct", function () {
+        equal("features/user-feature/scenario-1/images/thumbnails/3.png", namingUtil.thumbnailScreenshotImage("user-feature","scenario-1",3));
+    });
+
+    test("cropped file locations is correct", function () {
+        equal("features/user-feature/scenario-1/images/cropped/3.png", namingUtil.croppedScreenshotImage("user-feature", "scenario-1", 3));
+    });
+
+     test("screenshot html content file locations is correct", function () {
+        equal("features/user-feature/scenario-1/html/4.html", namingUtil.screenshotHtmlFile("user-feature", "scenario-1" , 4));
+    });
+
+    test("find a screenshot inside a featureConversations", function () {
+
+             var featureConversations = [
+                      {
+                          "scenario": {
+                              "name": "do-something",
+                              "id": "scenario-1"
+                          },
+                          "screenshots": [{
+                                              "step": "step-1",
+                                              "data": [{
+                                                  "id": 1,
+                                                  "title": "title11",
+                                                  "url": "url11"
+                                              }]
+                                          },
+                                          {
+                                              "step": "step-2",
+                                              "data": [{
+                                                  "id": 2,
+                                                  "title": "title12",
+                                                  "url": "url12"
+                                              }]
+                                          }],
+                          "conversation": {
+                              "messages": [{}, {}],
+                              "sequenceDiagram": "<svg></svg>"
+                          }
+                      },
+                      {
+                          "scenario": {
+                              "name": "do-something-else",
+                              "id": "scenario-2"
+                          },
+                          "screenshots": [{
+                                              "step": "step-3",
+                                              "data": [{
+                                                  "id": 3,
+                                                  "title": "title21",
+                                                  "url": "url21"
+                                              }]
+                                          },
+                                          {
+                                              "step": "step-4",
+                                              "data": [{
+                                                  "id": 4,
+                                                  "title": "title22",
+                                                  "url": "url22"
+                                              }]
+                                          }],
+                          "conversation": {
+                              "messages": [{}, {}],
+                              "sequenceDiagram": "<svg></svg>"
+                          }
+                      }
+                      ];
+
+             var actualScreenshot = new NamingUtil().findScreenshot(featureConversations, "scenario-2", 4);
+
+             equal("title22", actualScreenshot.title);
+             equal("url22", actualScreenshot.url);
+
+    });
+
+
+
+</script>
+</body>
+</html>

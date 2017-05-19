@@ -1,4 +1,4 @@
-function DistancesCalculator(configuration, systemsBuilder, conversationReport, maxDescriptionMessageLengthCalculator) {
+function DistancesCalculator(configuration, systemsBuilder, conversationReport, messageLengthCalculator) {
 
     var that = this
 
@@ -95,7 +95,7 @@ function DistancesCalculator(configuration, systemsBuilder, conversationReport, 
 
             var distanceToAPreviousSystem = that.leftBorderDistanceBetweenFirstSystemAndSystem(aPreviousSystemName)
             var aPreviousSystemHalfDistance = systemBuilderWithName(aPreviousSystemName).width() / 2
-            var maxDescriptionLengthDistance = maxDescriptionMessageLengthCalculator.calculate(aPreviousSystemName, nameOfTheSystemToAnalyse)
+            var maxDescriptionLengthDistance = messageLengthCalculator.calculateMaxMessageLengthBetweenSystems(aPreviousSystemName, nameOfTheSystemToAnalyse)
             if (maxDescriptionLengthDistance) {
                 var systemToAnalyseHalfDistanceDistance = systemBuilderWithName(nameOfTheSystemToAnalyse).width() / 2
                 var possibleDistance = distanceToAPreviousSystem + aPreviousSystemHalfDistance + maxDescriptionLengthDistance - systemToAnalyseHalfDistanceDistance

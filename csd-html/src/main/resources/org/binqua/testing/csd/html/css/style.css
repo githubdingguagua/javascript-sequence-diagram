@@ -1,0 +1,550 @@
+.report {
+    width: 100%;
+}
+
+.testPassed {
+    font-weight: bold;
+    color: rgba(102, 164, 0, .9);
+    text-shadow: none;
+}
+
+.testFailed {
+    font-weight: bold;
+    color: rgba(204, 0, 0, .9);
+    text-shadow: none;
+}
+
+.testSkipped {
+    font-weight: bold;
+    color: rgba(30, 161, 173, .9);
+    text-shadow: none;
+}
+
+.testUndefined {
+    color: rgba(147, 140, 140, .9);
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.cucumber-report .body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.cucumber-report .keyword {
+    font-weight: bold;
+}
+
+.cucumber-report .description {
+    font-style: italic;
+    margin-left: 20px;
+}
+
+.cucumber-report .feature {
+    border: 1px;
+    border-style: solid;
+    border-color: darkblue;
+}
+
+.cucumber-report section {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.cucumber-report details > section {
+    margin-left: 20px;
+}
+
+.cucumber-report ol.steps {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cucumber-report .step .embedded-text {
+    background: #dddddd;
+}
+
+.cucumber-report .doc_string {
+    margin: 0 0 0 20px;
+}
+
+.cucumber-report table {
+    border-collapse: collapse;
+    border: 1px;
+    border-style: solid;
+}
+
+.cucumber-report td, .cucumber-report th {
+    border: 1px;
+    border-style: solid;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.cucumber-report table {
+    margin-left: 20px;
+}
+
+.cucumber-report thead {
+    background-color: #C0C0C0;
+}
+
+.cucumber-report .passed {
+    background-color: rgba(102, 184, 0, .1);
+}
+
+.cucumber-report .undefined, .cucumber-report .pending {
+    background-color: #EAEC2D;
+}
+
+.cucumber-report .skipped {
+    background-color: #2DEAEC;
+}
+
+.cucumber-report .failed {
+    background-color: #D88A8A;
+}
+
+.cucumber-report .tags {
+    display: inline;
+}
+
+.cucumber-report .tag {
+    margin-right: 0.25em;
+    color: #246ac1;
+}
+
+.cucumber-report .comments {
+    display: inline;
+}
+
+.cucumber-report .comment {
+    margin: 0;
+    padding: 0;
+}
+
+.cucumber-report .error {
+    margin: .2em .75em;
+    padding: .2em;
+    border: 1px solid #900;
+    background-color: #EDBBBB;
+}
+
+#cucumber-templates {
+    display: none;
+}
+
+.conversations {
+    background: #dddddd;
+}
+
+.conversations-messages-title {
+    padding: 0;
+    margin: 0;
+}
+
+.conversations-messages {
+    margin-left: 55px;
+}
+
+.conversations-body {
+    margin-left: 20px;
+}
+
+ol.conversation-request-attributes {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ol.conversation-response-attributes {
+    list-style-type: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.conversations-screenshots {
+    padding: 1px 15px;
+}
+
+.conversations-screenshots-title {
+    padding: 0 0 0 40px;
+    margin: 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.conversations-screenshots-title .screenshots-count {
+    font-size: 14px;
+}
+
+.conversations-screenshots-title:before {
+    content: "\25b6";
+    margin-right: 10px;
+}
+
+.conversations-screenshots-body {
+    margin-left: 40px;
+}
+
+.conversations-screenshots-title.active:before {
+    content: "\25bc";
+    margin-right: 10px;
+}
+
+.conversations-sequence-diagram {
+    margin-left: 55px;
+}
+
+.conversations-sequence-diagram-title {
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-request {
+    padding: 2px;
+    margin: 2px;
+    border: 1px solid #999;
+}
+
+.conversation-response {
+    padding: 2px;
+    margin: 1px;
+    border: 1px solid #999;
+}
+
+.conversation-request-title {
+    padding: 0;
+    margin: 0;
+}
+
+svg {
+    padding: 0;
+    margin: 0;
+    margin-left: 16px;
+}
+
+.conversation-response-title {
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-response-attributes {
+    border: 1px #000000;
+    display: none;
+}
+
+.request-response-body {
+    margin-left: 10px;
+}
+
+.conversation-title {
+    padding: 0;
+    margin: 0;
+}
+
+.attribute-key {
+    color: darkblue;
+}
+
+.attribute-value {
+    color: darkgreen;
+}
+
+.attribute-separator {
+    color: #000000;
+}
+
+table.stats-table {
+    color: black;
+    border-width: 1px;
+    border-spacing: 2px;
+    border-style: outset;
+    border-color: gray;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+table.stats-table th {
+    color: black;
+    border-width: 1px;
+    padding: 5px;
+    border-style: inset;
+    border-color: gray;
+    background-color: #66CCEE;
+    -moz-border-radius:;
+}
+
+table.stats-table td {
+    color: black;
+    text-align: center;
+    border-width: 1px;
+    padding: 5px;
+    border-style: inset;
+    border-color: gray;
+    background-color: white;
+    -moz-border-radius:;
+}
+
+.screenshots-content {
+    overflow: auto;
+    position: relative;
+    padding: 0px;
+    margin: 0;
+    width: 100%;
+    height: auto;
+}
+
+.screenshot-container {
+    background-color: #333;
+}
+
+.screenshots-content li {
+    margin: 4px;
+    overflow: hidden;
+}
+
+.screenshots-content li a {
+    display: inline-block;
+    border: 7px solid rgba(255, 255, 255, .1);
+    text-align: center;
+    min-width: 100%;
+    border: none;
+}
+
+.screenshot-container {
+    margin: 3px;
+    padding: 3px;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.report-body-text {
+    margin: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(102, 184, 0, .2);
+    padding: 3px;
+}
+
+.failed.report-body-text,
+.failed .report-body-text {
+    border-color: rgba(204, 0, 0, .2);
+}
+
+.skipped.report-body-text,
+.skipped .report-body-text {
+    border-color: rgba(30, 161, 173, .2);
+}
+
+.undefined.report-body-text,
+.undefined .report-body-text {
+    border-color: rgba(147, 140, 140, .2);
+}
+
+.page-details {
+    width: 380px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #FFF;
+    white-space: nowrap;
+}
+
+text.post-style {
+    fill: #2B2BFF;
+}
+
+text.get-style {
+    fill: #336600;
+}
+
+text.put-style {
+    fill: #2B2BFF;
+}
+
+text.delete-style {
+    fill: #FF2B95;
+}
+
+text.undeliveredMessage {
+    fill: #CF100D
+}
+
+table.data-table {
+    color: black;
+    border-width: 2px;
+    border-color: #d6d6d6;
+    background-color: #C5D88A;
+    width: 50%;
+    margin: 0px;
+    margin-left: 50px;
+}
+
+table.data-table td {
+    color: black;
+    text-align: center;
+    border-width: 1px;
+    border-style: inset;
+    border-color: black;
+    background-color: #C5D88A;
+}
+
+.search-result-feature {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.search-result-scenario {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.search-result-step {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.search-result-screenshot {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.btn-navigator {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.icon-container {
+    border-radius: 30px;
+    padding: 5px;
+    border: 1px solid #888;
+    display: inline-block;
+    width: 31px;
+}
+
+.previous .icon-container .icon {
+    position: relative;
+    top: 1px;
+    left: 2px;
+}
+
+.next .icon-container .icon {
+    position: relative;
+    top: 1px;
+    left: 4px;
+}
+
+.btn-navigator.previous {
+    float: left;
+}
+
+.btn-navigator.next {
+    float: right;
+}
+
+.clear-float {
+    clear: both;
+}
+
+.padding-top {
+    padding-top: 20px;
+}
+
+table.data-table td {
+    background-color: lightblue;
+}
+
+.w2ui-field-helper.w2ui-list {
+    display: block;
+    z-index: 1;
+}
+
+input#wordsToBeFound {
+    padding: 5px;
+    position: relative;
+}
+
+#searchForm input[type=radio] {
+    margin: 0 0 10px 10px;
+}
+
+#searchResult ul li {
+    padding: 10px 5px;
+    border-bottom: 1px solid #888;
+}
+
+#searchResult ul li:nth-child(2n) {
+    background-color: #e5e5e5;
+}
+
+.search-result-scenario {
+    margin-left: 25px;
+}
+
+.search-result-step-container {
+    margin-left: 40px;
+}
+
+.search-result-screenshot-container {
+    margin-left: 55px;
+}
+
+.js-step-toggle-container {
+    height: 29px;
+    overflow: hidden;
+}
+
+.js-step-toggle-container.open {
+    height: auto;
+    overflow: initial;
+}
+
+.js-step-toggle {
+    cursor: pointer;
+}
+
+.js-step-toggle-container .js-step-toggle:before {
+    content: "\25b6";
+}
+
+.js-step-toggle-container.open .js-step-toggle:before {
+    content: "\25bc";
+}
+
+#node_tests-menu {
+    cursor: pointer;
+}
+
+#node_tests-menu:before {
+    content: "\25bc";
+}
+
+.w2ui-reset .search-button-container {
+    margin-left: 10px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.search-button-container .btn {
+    margin-left: 0;
+}
+
+.w2ui-popup .previous-screenshot,
+.w2ui-popup .next-screenshot {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.w2ui-popup .next-screenshot {
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.w2ui-popup .w2ui-msg-buttons {
+    padding: 0 !important;
+}

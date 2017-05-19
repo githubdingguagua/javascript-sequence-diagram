@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>Feature Report: Account Holder withdraws cash</title>
+</head>
+<body>
+<div class='report'>
+  <div style='color:black;'>
+
+    <div class='feature-tags'>@super</div>
+    <div class='failed'>
+    <div id='feature-1' class='feature-line report-body-text'><span class='feature-keyword'>Feature:</span> Account Holder withdraws cash</div>
+    </div>
+
+    <div class='feature-tags'>@SetUpAndCleanUp, @IE-1234</div>
+    <div class="js-step-toggle-container">
+    <div id='scenario-1' class='failed report-body-text js-step-toggle'><span class='scenario-keyword'>Background 1: </span> <span class='scenario-name'>Activate Credit Card</span></div>
+    <div id='step-1' class='passed report-body-text'><span class='step-keyword'>Given   </span><span class='step-name'>I have a new credit card</span></div>
+    <div id='step-1-details'></div>
+    <div id='step-2' class='passed report-body-text'><span class='step-keyword'>When   </span><span class='step-name'>I confirm my pin number</span></div>
+    <div id='step-2-details'></div>
+    <div id='step-3' class='failed report-body-text'><span class='step-keyword'>Then   </span><span class='step-name'>the card should be activated</span></div>
+    <div class='failed step-exception'>some error message</div>
+    <div id='step-3-details'></div>
+    </div>
+    <div class='feature-tags'>@fast, @super, @checkout</div>
+    <div class="js-step-toggle-container">
+    <div id='scenario-2' class='passed report-body-text js-step-toggle'><span class='scenario-keyword'>Scenario 2: </span> <span class='scenario-name'>Account has &#39;sufficient funds&#39;</span></div>
+    <div id='step-4' class='passed report-body-text'><span class='step-keyword'>Given   </span><span class='step-name'>the account balance is 100</span></div>
+    <div id='step-4-details'></div>
+    <div id='step-5' class='passed report-body-text'><span class='step-keyword'>And   </span><span class='step-name'>the card is valid</span></div>
+    <div id='step-5-details'></div>
+    <div id='step-6' class='passed report-body-text'><span class='step-keyword'>And   </span><span class='step-name'>the machine contains 100</span></div>
+    <div id='step-6-details'></div>
+    <div id='step-7' class='passed report-body-text'><span class='step-keyword'>When   </span><span class='step-name'>the Account Holder requests 10</span></div>
+    <div id='step-7-details'></div>
+    <div id='step-8' class='passed report-body-text'><span class='step-keyword'>Then   </span><span class='step-name'>the ATM should dispense 10</span></div>
+    <div id='step-8-details'></div>
+    <div id='step-9' class='passed report-body-text'><span class='step-keyword'>And   </span><span class='step-name'>the account balance should be 90</span></div>
+    <div id='step-9-details'></div>
+    <div id='step-10' class='passed report-body-text'><span class='step-keyword'>And   </span><span class='step-name'>the card should be returned</span></div>
+    <div class='passed'>
+    <table class='data-table'>
+      <tr>
+        <td>column1</td>
+        <td>column2</td>
+      </tr>
+      <tr>
+        <td>value1</td>
+        <td>value2</td>
+      </tr>
+    </table>
+    </div>
+    <div id='step-10-details'></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+package org.binqua.testing.csd.external.core;
+
+public class JsonXmlContentTypeBasedBodyFactory implements BodyFactory {
+
+    private final ContentTypeBasedBodyFactory bodyFactory;
+
+    public JsonXmlContentTypeBasedBodyFactory() {
+        final ModifiableContentTypeBodyRepresentationMapping contentTypeBodyRepresentationMapping = new MapBasedContentTypeBodyRepresentationMapping();
+        contentTypeBodyRepresentationMapping.addKeyValue("application/xml", Body.ContentType.XML);
+        contentTypeBodyRepresentationMapping.addKeyValue("text/xml", Body.ContentType.XML);
+        contentTypeBodyRepresentationMapping.addKeyValue("application/json", Body.ContentType.JSON);
+        contentTypeBodyRepresentationMapping.addKeyValue("text/json", Body.ContentType.JSON);
+        this.bodyFactory = new ContentTypeBasedBodyFactory(contentTypeBodyRepresentationMapping);
+    }
+
+    @Override
+    public Body createAMessageBody(String value, Headers headers) {
+        return bodyFactory.createAMessageBody(value, headers);
+    }
+
+    @Override
+    public Body createAMessageBody(String value, Body.ContentType contentType) {
+        return bodyFactory.createAMessageBody(value, contentType);
+    }
+
+}

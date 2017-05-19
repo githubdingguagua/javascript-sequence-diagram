@@ -1,0 +1,23 @@
+.testPassed {
+    font-weight: bold;
+    color: rgba(102,164,0,.9);
+    text-shadow: none;
+}
+.testFailed {
+    font-weight: bold;
+    color: rgba(204,0,0,.9);
+    text-shadow: none;
+}
+.testSkipped {
+    font-weight: bold;
+    color: rgba(30, 161, 173, .9);
+    text-shadow: none;
+}
+.serverProblems {
+    font-weight: bold;
+    color: rgba(252, 173, 0);
+    text-shadow: none;
+}
+.dateTimeInfo {
+	margin-left: 10px;
+}

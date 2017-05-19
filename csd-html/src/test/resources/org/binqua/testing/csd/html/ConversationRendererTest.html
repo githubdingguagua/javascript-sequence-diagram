@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit basic example</title>
+  <link rel="stylesheet" href="qunit-1.23.1.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="qunit-1.23.1.js"></script>
+<script src="jquery-2.1.4.js"></script>
+
+<script type="text/javascript" src="sinon-1.17.1.js"></script>
+<script type="text/javascript" src="sinon-qunit-1.0.0.js"></script>
+
+<script src="csdUtil.js"></script>
+<script src="namingUtil.js"></script>
+<script src="conversationRenderer.js"></script>
+<script src="htmlIdManager.js"></script>
+
+<script>
+
+    var screenshotNavigationRenderer = { render: function(stepConversation, numberOfScreenshotsToBeShown){}}
+
+    var expectedStepConversation = {scenarioId: "scenario-1", stepId: "step-1", numberOfScreenshots: 2}
+
+    sinon.stub(screenshotNavigationRenderer, "render").withArgs(expectedStepConversation).returns("<div>mock html for screenshots navigation</div>");
+
+
+    var conversationMessagesRenderer = { render: function(stepConversation){}}
+
+    var expectedConversationMessages = { somejson: "we dont care because mocked" }
+
+    sinon.stub(conversationMessagesRenderer, "render").withArgs(expectedConversationMessages).returns("<div>mock html for conversation messages</div>");
+
+
+    var csdUtil = new CsdUtil();
+
+    var namingUtil = new NamingUtil();
+
+    var htmlIdManager = new HtmlIdManager();
+
+    var conversationRenderer = new ConversationRenderer(namingUtil, htmlIdManager, screenshotNavigationRenderer, conversationMessagesRenderer);
+
+    test("toHtml produces right html", function () {
+
+   var scenarioConversation = {
+              "step":"step-1",
+              "scenario": {
+                    "name": "do-something",
+                    "id": "scenario-1"
+              },
+              "screenshots": [
+                {
+                    "id":1,
+                    "title": "title1",
+                    "url": "url1",
+                    "browserEvent": "got to url1"
+                },
+                {
+                    "id":2,
+                    "title": "title2",
+                    "url": "url2",
+                    "browserEvent": "got to url2"
+                }
+              ],
+              "conversation": expectedConversationMessages
+            };
+
+        var actualResult = conversationRenderer.toHtml(scenarioConversation, "featureToBeShown", true)
+
+        var expectedConversation =
+              "<div class='conversations'>" +
+                  "<div class='conversations-screenshots'>" +
+                    "<p class='conversations-screenshots-title' id='screenshots-label_scenario-1_step-1'>Screenshots: <span class='screenshots-count'>2 screenshots captured. </span></p>" +
+                    "<div class='conversations-screenshots-body' id='screenshots-body_scenario-1_step-1'>" +
+                        "<div class='screenshots-content' id='thumbnail_scenario-1_step-1'>" +
+                            "<ul>" +
+                                "<li>" +
+                                    "<div class='screenshot-container'>" +
+                                        "<p class='page-details'>Title 1 : title1</p>" +
+                                        "<p class='page-details'>Url: url1</p>" +
+                                        "<p class='page-details'>Screenshot taken got to url1</p>" +
+                                        "<a href='#'>" +
+                                        "<img data-screenshot-id='1' id='scenario-1_step-1_title-1' data-next-screenshot='scenario-1_step-1_title-2' data-previous-screenshot='false' class='clickableScreenshot' src='features/featureToBeShown/scenario-1/images/thumbnails/1.png'/>" +
+                                        "</a>" +
+                                    "</div>" +
+                                "</li>" +
+                                "<li>" +
+                                    "<div class='screenshot-container'>" +
+                                    "<p class='page-details'>Title 2 : title2</p>" +
+                                    "<p class='page-details'>Url: url2</p>" +
+                                    "<p class='page-details'>Screenshot taken got to url2</p>" +
+                                    "<a href='#'>" +
+                                    "<img data-screenshot-id='2' id='scenario-1_step-1_title-2' data-next-screenshot='false' data-previous-screenshot='scenario-1_step-1_title-1' class='clickableScreenshot' src='features/featureToBeShown/scenario-1/images/thumbnails/2.png'/>" +
+                                    "</a>" +
+                                    "</div>" +
+                                "</li>" +
+                            "</ul>" +
+                        "</div>" +
+                        "<div>mock html for screenshots navigation</div>" +
+                    "</div>" +
+                  "</div>" +
+                "<div>mock html for conversation messages</div>" +
+              "</div>";
+
+        equal(csdUtil.format(actualResult), csdUtil.format(expectedConversation));
+
+    });
+</script>
+</body>
+</html>

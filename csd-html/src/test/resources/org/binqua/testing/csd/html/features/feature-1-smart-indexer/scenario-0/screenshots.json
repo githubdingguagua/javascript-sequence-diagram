@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "title": "Create an account scenario 0",
+    "url": "http://localhost:9090/register/single/scenario0"
+  },
+  {
+    "id": 1,
+    "title": "Sign in to your account scenario 0",
+    "url": "http://localhost:9090/sign-in/scenario0"
+  },
+  {
+    "id": 2,
+    "title": "to-do list scenario 0",
+    "url": "http://localhost:9090/toDo-list/scenario0"
+  }
+]

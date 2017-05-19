@@ -7,6 +7,26 @@
   <version>1.0-SNAPSHOT</version>
   <name>org-binqua-sequencediagram</name>
   <url>http://maven.apache.org</url>
+
+  <groupId>org.binqua.testing.csd</groupId>
+  <artifactId>csd</artifactId>
+  <packaging>pom</packaging>
+  <version>1.SNAPSHOT</version>
+
+
+  <modules>
+    <module>csd-common</module>
+    <module>csd-mongo-external</module>
+    <module>csd-external</module>
+    <module>csd-httpclient</module>
+    <module>csd-bridge</module>
+    <module>csd-html</module>
+    <module>csd-java</module>
+    <module>csd-cucumber-reports</module>
+    <module>csd-acceptance-hazelcast-test</module>
+    <module>csd-multiple-reports-webapp</module>
+  </modules>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

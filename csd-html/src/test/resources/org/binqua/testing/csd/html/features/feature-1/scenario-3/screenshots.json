@@ -1,0 +1,31 @@
+[
+  {
+    "step": "step-7",
+    "data": [
+        {
+        "id": 0,
+        "title": "Create an account scenario 3 step7screenshot0",
+        "url": "http://localhost:9090/register/single/scenario3",
+        "browserEvent": ""
+        }
+    ]
+  },
+  {
+    "step": "step-8",
+    "data": [
+        {
+            "id": 1,
+            "title": "Create an account scenario 3 step8screenshot1",
+            "url": "http://localhost:9090/sign-in/scenario3",
+            "browserEvent": ""
+        },
+        {
+            "id": 2,
+            "title": "Create an account scenario 3 step8screenshot2",
+            "url": "http://localhost:9090/toDo-list/scenario3",
+            "browserEvent": ""
+        }
+    ]
+ }
+]
+

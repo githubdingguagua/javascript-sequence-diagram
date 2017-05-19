@@ -1,0 +1,40 @@
+{
+  "id": "feature-1-smart-indexer",
+  "title": "feature-1-smart-indexer-title",
+  "scenarios": [
+    {
+      "key": "background",
+      "id": "scenario-2",
+      "title": "a background 2",
+      "steps": [
+        {
+          "id": "step-4",
+          "key": "Given ",
+          "text": "we are happy step4"
+        },
+        {
+          "id": "step-5",
+          "key": "When ",
+          "text": "we looks very happy step5"
+        }
+      ]
+    },
+    {
+      "key": "scenario",
+      "id": "scenario-3",
+      "title": "this is scenario 1",
+      "steps": [
+        {
+          "id": "step-6",
+          "key": "Given ",
+          "text": "an happy user step6"
+        },
+        {
+          "id": "step-7",
+          "key": "When ",
+          "text": "I call the status page scenario 0 step7"
+        }
+      ]
+    }
+  ]
+}

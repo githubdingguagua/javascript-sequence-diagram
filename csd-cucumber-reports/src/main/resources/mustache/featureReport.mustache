@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>Feature Report: {{name}}</title>
+</head>
+<body>
+<div class='report'>
+  <div style='color:black;'>
+
+    {{#hasTags}}
+    <div class='feature-tags'>{{commaSeparatedTags}}</div>
+    {{/hasTags}}
+    <div class='{{status.statusString}}'>
+    <div id='{{id}}' class='feature-line report-body-text'><span class='feature-keyword'>Feature:</span> {{name}}</div>
+    </div>
+
+    {{#scenarios}}
+    {{#hasTags}}
+    <div class='feature-tags'>{{commaSeparatedTags}}</div>
+    {{/hasTags}}
+    <div class="js-step-toggle-container">
+    <div id='{{id}}' class='{{status.statusString}} report-body-text js-step-toggle'><span class='scenario-keyword'>{{keyword}} {{idAsInt}}: </span> <span class='scenario-name'>{{name}}</span></div>
+    {{#steps}}
+    <div id='{{id}}' class='{{result.status.statusString}} report-body-text'><span class='step-keyword'>{{keyword}}  </span><span class='step-name'>{{name}}</span></div>
+    {{#hasANonEmptyDataTable}}
+    <div class='{{result.status.statusString}}'>
+    <table class='data-table'>
+      {{#dataTableRows}}
+      <tr>
+        {{#columnValues}}
+        <td>{{.}}</td>
+        {{/columnValues}}
+      </tr>
+      {{/dataTableRows}}
+    </table>
+    </div>
+    {{/hasANonEmptyDataTable}}
+      {{#result.status.failsBuild}}
+    <div class='{{result.status.statusString}} step-exception'>{{{result.errorMessage}}}</div>
+      {{/result.status.failsBuild}}
+      {{#id}}
+    <div id='{{id}}-details'></div>
+      {{/id}}
+      {{/steps}}
+    </div>
+    {{/scenarios}}
+  </div>
+</div>
+</body>
+</html>

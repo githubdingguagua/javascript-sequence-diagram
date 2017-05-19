@@ -1,0 +1,128 @@
+  {
+    "line": 2,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 2321048,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Util.beforeScenario()"
+            }
+          }
+        ],
+        "line": 4,
+        "name": "do something",
+        "description": "",
+        "id": "the-status-page-of-my-micro-service-is-working-1;do-something",
+        "after": [
+          {
+            "result": {
+              "duration": 95947,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Util.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 273818721,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "My microservice is running",
+            "match": {
+              "location": "FirstStepdefs.my_microservice_is_running()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 60316736,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "I call the status page",
+            "match": {
+              "location": "FirstStepdefs.i_call_the_status_page()"
+            },
+            "keyword": "When "
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 100970,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Util.beforeScenario()"
+            }
+          }
+        ],
+        "line": 8,
+        "name": "do something else",
+        "description": "",
+        "id": "the-status-page-of-my-micro-service-is-working-1;do-something-else",
+        "after": [
+          {
+            "result": {
+              "duration": 87809,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Util.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 23910278,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "My microservice is running",
+            "match": {
+              "location": "FirstStepdefs.my_microservice_is_running()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 44783311,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "I call the status page",
+            "match": {
+              "location": "FirstStepdefs.i_call_the_status_page()"
+            },
+            "keyword": "When "
+          }
+        ]
+      }
+    ],
+    "name": "The status page of my micro service is working 1",
+    "description": "",
+    "id": "the-status-page-of-my-micro-service-is-working-1",
+    "keyword": "Feature",
+    "uri": "resources/first.feature",
+    "tags": [
+      {
+        "line": 1,
+        "name": "@SetUpAndCleanUp"
+      }
+    ]
+  }
