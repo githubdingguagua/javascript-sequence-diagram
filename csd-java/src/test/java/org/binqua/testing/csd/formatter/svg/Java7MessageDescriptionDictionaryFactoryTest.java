@@ -3,7 +3,7 @@ package org.binqua.testing.csd.formatter.svg;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.bniqua.testing.csd.bridge.external.Conversation;
+import org.binqua.testing.csd.bridge.external.Conversation;
 import org.binqua.testing.csd.external.SystemAlias;
 import org.binqua.testing.csd.external.core.Identifier;
 import org.binqua.testing.csd.external.core.Message;

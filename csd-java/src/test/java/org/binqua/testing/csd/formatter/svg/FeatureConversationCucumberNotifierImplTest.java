@@ -3,8 +3,8 @@ package org.binqua.testing.csd.formatter.svg;
 import org.binqua.testing.csd.formatter.report.assets.AssetsWriter;
 import org.junit.Test;
 
-import org.bniqua.testing.csd.bridge.external.ConversationSupport;
-import org.bniqua.testing.csd.bridge.external.StepContextObserver;
+import org.binqua.testing.csd.bridge.external.ConversationSupport;
+import org.binqua.testing.csd.bridge.external.StepContextObserver;
 import org.binqua.testing.csd.formatter.external.Configuration;
 import org.binqua.testing.csd.formatter.report.conversation.DecoratedConversationFactory;
 import org.binqua.testing.csd.formatter.report.conversation.FeatureConversationCucumberNotifierImpl;

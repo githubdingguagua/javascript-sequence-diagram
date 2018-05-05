@@ -1,6 +1,6 @@
 package org.binqua.testing.csd.external;
 
-import org.binqua.blabla.messaging.sender.JmsSenderFactory;
+import uk.gov.dwp.universe.messaging.sender.JmsSenderFactory;
 
 public interface CsdJmsSenderFactoryDecorator {
 

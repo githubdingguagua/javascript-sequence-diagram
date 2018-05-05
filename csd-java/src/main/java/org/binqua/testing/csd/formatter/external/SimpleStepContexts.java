@@ -1,7 +1,7 @@
 package org.binqua.testing.csd.formatter.external;
 
-import org.bniqua.testing.csd.bridge.external.StepContext;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepContext;
+import org.binqua.testing.csd.bridge.external.StepId;
 import org.binqua.testing.csd.formatter.util.StepIdGenerator;
 
 import java.util.ArrayList;

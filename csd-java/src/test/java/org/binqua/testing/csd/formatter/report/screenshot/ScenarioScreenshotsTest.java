@@ -1,13 +1,13 @@
 package org.binqua.testing.csd.formatter.report.screenshot;
 
 import org.junit.Test;
-import org.bniqua.testing.csd.bridge.external.StepContext;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepContext;
+import org.binqua.testing.csd.bridge.external.StepId;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.binqua.testing.csd.JsonTestUtil.asJsonAfterReplaceDoubleQuotes;
-import static org.bniqua.testing.csd.bridge.external.StepContext.stepContext;
+import static org.binqua.testing.csd.bridge.external.StepContext.stepContext;
 
 public class ScenarioScreenshotsTest {
 

@@ -8,8 +8,8 @@ import com.google.gson.JsonObject;
 import org.binqua.testing.csd.httpclient.HttpMessage;
 import org.junit.Test;
 
-import org.bniqua.testing.csd.bridge.external.Conversation;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.Conversation;
+import org.binqua.testing.csd.bridge.external.StepId;
 import org.binqua.testing.csd.external.core.Message;
 import org.binqua.testing.csd.formatter.svg.MessageDescriptionDictionary;
 import org.binqua.testing.csd.formatter.svg.MessageDescriptionDictionaryFactory;

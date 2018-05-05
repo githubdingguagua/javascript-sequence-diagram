@@ -1,6 +1,6 @@
 package org.binqua.testing.csd.formatter.report.conversation;
 
-import org.bniqua.testing.csd.bridge.external.StepContext;
+import org.binqua.testing.csd.bridge.external.StepContext;
 import org.binqua.testing.csd.cucumberreports.model.Feature;
 import org.binqua.testing.csd.formatter.report.screenshot.Screenshot;
 

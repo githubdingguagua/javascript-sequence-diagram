@@ -29,7 +29,7 @@ public class ImplementationFinderJava8BasedTest {
 
         expectedException.expect(RuntimeException.class);
 
-        expectedException.expectMessage("Not implementation of ImplementationFinderJava8BasedTest$MyClass found in:\njava.lang.String\njava.lang.Integer");
+        expectedException.expectMessage("Not implementation of org.binqua.testing.csd.external.ImplementationFinderJava8BasedTest$MyClass found in:\njava.lang.String\njava.lang.Integer");
 
         implementationFinderJava8Based.findAnImplementationOf(MyClass.class, new Object[]{"", new Integer(1)});
 
@@ -52,7 +52,7 @@ public class ImplementationFinderJava8BasedTest {
     private void assertThatExceptionMessageIsCorrectInCaseOfImplementations(Object[] implementations) {
         expectedException.expect(RuntimeException.class);
 
-        expectedException.expectMessage("Not implementation of ImplementationFinderJava8BasedTest$MyClass found because there are not implementations");
+        expectedException.expectMessage("Not implementation of org.binqua.testing.csd.external.ImplementationFinderJava8BasedTest$MyClass found because there are not implementations");
 
         implementationFinderJava8Based.findAnImplementationOf(MyClass.class, implementations);
     }

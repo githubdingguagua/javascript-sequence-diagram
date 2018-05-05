@@ -2,7 +2,7 @@ package org.binqua.testing.csd.formatter.external;
 
 import org.binqua.testing.csd.formatter.builder.FeatureBuilderFactory;
 import org.binqua.testing.csd.formatter.report.conversation.CucumberNotifier;
-import org.bniqua.testing.csd.bridge.external.StepContext;
+import org.binqua.testing.csd.bridge.external.StepContext;
 import org.binqua.testing.csd.formatter.builder.FeatureBuilder;
 import org.binqua.testing.csd.formatter.builder.SimpleFeatureBuilderFactory;
 import org.binqua.testing.csd.formatter.report.conversation.CucumberNotifierFactory;

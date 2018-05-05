@@ -25,7 +25,7 @@ import static java.util.Arrays.asList;
 
 public class SimpleAssetsWriter implements AssetsWriter {
 
-    private static final String ASSETS_FILE_CLASSPATH_LOCATION = "/org.binqua/testing/csd/html/";
+    private static final String ASSETS_FILE_CLASSPATH_LOCATION = "/org/binqua/testing/csd/html/";
     private static final String INDEX_HTML = "index.html";
 
     private ReportFileNames reportFileNames;

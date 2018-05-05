@@ -6,7 +6,7 @@ import gherkin.formatter.model.Match;
 import gherkin.formatter.model.Result;
 import gherkin.formatter.model.Scenario;
 import gherkin.formatter.model.Step;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepId;
 
 public interface FeatureBuilder {
 

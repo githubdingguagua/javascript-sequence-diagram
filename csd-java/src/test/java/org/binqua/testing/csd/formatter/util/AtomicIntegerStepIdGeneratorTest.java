@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.bniqua.testing.csd.bridge.external.StepId.stepId;
+import static org.binqua.testing.csd.bridge.external.StepId.stepId;
 
 public class AtomicIntegerStepIdGeneratorTest {
 

@@ -5,8 +5,9 @@
     <parent>
         <groupId>org.binqua.testing.csd</groupId>
         <artifactId>csd</artifactId>
-        <version>1.SNAPSHOT</version>
+        <version>1-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>csd-bridge</artifactId>
@@ -35,9 +36,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.binqua.testing.csd</groupId>
-            <artifactId>csd-external</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
 
         <dependency>

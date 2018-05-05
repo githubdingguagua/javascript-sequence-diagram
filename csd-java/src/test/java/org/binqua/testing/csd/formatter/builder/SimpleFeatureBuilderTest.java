@@ -11,7 +11,7 @@ import gherkin.formatter.model.Tag;
 import org.binqua.testing.csd.formatter.util.IdGenerator;
 import org.junit.Before;
 import org.junit.Test;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepId;
 import org.binqua.testing.csd.cucumberreports.model.CsdDataTable;
 import org.binqua.testing.csd.cucumberreports.model.Status;
 

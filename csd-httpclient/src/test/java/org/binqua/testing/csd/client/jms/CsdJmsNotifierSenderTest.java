@@ -7,7 +7,7 @@ import org.binqua.testing.csd.external.SystemAlias;
 import org.binqua.testing.csd.external.core.JmsMessageFactory;
 import org.binqua.testing.csd.external.core.Message;
 import org.binqua.testing.csd.external.core.MessageObserver;
-import org.binqua.blabla.messaging.sender.JmsSender;
+import uk.gov.dwp.universe.messaging.sender.JmsSender;
 
 import javax.jms.TextMessage;
 import java.util.Optional;

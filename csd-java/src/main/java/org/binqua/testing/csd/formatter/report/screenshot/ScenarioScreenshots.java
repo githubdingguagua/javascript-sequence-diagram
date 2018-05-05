@@ -3,9 +3,9 @@ package org.binqua.testing.csd.formatter.report.screenshot;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.bniqua.testing.csd.bridge.external.StepContext;
-import org.bniqua.testing.csd.bridge.external.StepContextObserver;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepContext;
+import org.binqua.testing.csd.bridge.external.StepContextObserver;
+import org.binqua.testing.csd.bridge.external.StepId;
 import org.binqua.testing.csd.formatter.report.conversation.ToJson;
 
 import java.util.ArrayList;

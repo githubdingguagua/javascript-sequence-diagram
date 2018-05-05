@@ -6,7 +6,7 @@ import org.binqua.testing.csd.external.SystemAlias;
 import org.binqua.testing.csd.external.UrlAliasResolver;
 import org.binqua.testing.csd.external.core.JmsMessageFactory;
 import org.binqua.testing.csd.external.core.MessageObserver;
-import org.binqua.blabla.messaging.sender.JmsSenderFactory;
+import uk.gov.dwp.universe.messaging.sender.JmsSenderFactory;
 
 class SimpleCsdJmsSenderFactoryDecorator implements CsdJmsSenderFactoryDecorator {
 

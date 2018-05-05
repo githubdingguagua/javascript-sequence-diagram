@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.binqua.testing.csd.external.core.Body;
 import org.binqua.testing.csd.external.core.JsonBody;
 import org.binqua.testing.csd.external.core.XmlBody;
-import org.binqua.blabla.messaging.message.BytesMessageInputStream;
+import uk.gov.dwp.universe.messaging.message.BytesMessageInputStream;
 
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.binqua.testing.csd</groupId>
         <artifactId>csd</artifactId>
-        <version>1.SNAPSHOT</version>
+        <version>1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -62,8 +62,15 @@
         </dependency>
 
         <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-html</artifactId>
+            <version>0.2.6</version>
+        </dependency>
+
+        <dependency>
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
+            <version>8017</version>
         </dependency>
 
         <dependency>
@@ -101,11 +108,6 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
         </dependency>
 
     </dependencies>

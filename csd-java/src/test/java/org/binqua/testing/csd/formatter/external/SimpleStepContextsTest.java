@@ -2,7 +2,7 @@ package org.binqua.testing.csd.formatter.external;
 
 import org.binqua.testing.csd.formatter.util.StepIdGenerator;
 import org.junit.Test;
-import org.bniqua.testing.csd.bridge.external.StepId;
+import org.binqua.testing.csd.bridge.external.StepId;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -10,8 +10,8 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.bniqua.testing.csd.bridge.external.StepContext.stepContext;
-import static org.bniqua.testing.csd.bridge.external.StepId.stepId;
+import static org.binqua.testing.csd.bridge.external.StepContext.stepContext;
+import static org.binqua.testing.csd.bridge.external.StepId.stepId;
 
 public class SimpleStepContextsTest {
 

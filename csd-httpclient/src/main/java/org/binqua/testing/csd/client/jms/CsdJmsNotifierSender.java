@@ -3,8 +3,8 @@ package org.binqua.testing.csd.client.jms;
 import org.binqua.testing.csd.external.SystemAlias;
 import org.binqua.testing.csd.external.core.JmsMessageFactory;
 import org.binqua.testing.csd.external.core.MessageObserver;
-import org.binqua.blabla.data.Resource;
-import org.binqua.blabla.messaging.sender.JmsSender;
+import uk.gov.dwp.universe.data.Resource;
+import uk.gov.dwp.universe.messaging.sender.JmsSender;
 
 import javax.jms.Message;
 import java.util.Optional;

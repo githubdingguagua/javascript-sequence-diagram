@@ -1,6 +1,6 @@
 package org.binqua.testing.csd.formatter.svg;
 
-import org.bniqua.testing.csd.bridge.external.Conversation;
+import org.binqua.testing.csd.bridge.external.Conversation;
 
 public interface MessageDescriptionDictionaryFactory {
 
