@@ -1,7 +1,6 @@
 package org.binqua.testing.csd.bridge.external;
 
 import com.hazelcast.core.IList;
-
 import org.binqua.testing.csd.bridge.external.hazelcast.HazelcastSharedObjectFactory;
 import org.binqua.testing.csd.external.CsdNotifiersFactory;
 import org.binqua.testing.csd.external.MapUrlAliasResolver;
@@ -13,8 +12,12 @@ import java.util.Map;
 
 public class Csd {
 
-    public static CsdNotifiersFactory notifiersFactory(MapUrlAliasResolver mapUrlAliasResolver) {
+    public static CsdNotifiersFactory notifiersFactory(UrlAliasResolver mapUrlAliasResolver) {
         return new CsdNotifiersFactoryImpl(mapUrlAliasResolver);
+    }
+
+    public static CsdNotifiersFactory notifiersFactory(String yamlFile) {
+        return new CsdNotifiersFactoryImpl(new YamlBasedUrlAliasResolver(yamlFile));
     }
 
     public static CsdNotifiersFactory notifiersFactoryWithHazelcastSupportFor(String clusterIdentifier, int hazelcastPort, UrlAliasResolver urlAliasResolver) {

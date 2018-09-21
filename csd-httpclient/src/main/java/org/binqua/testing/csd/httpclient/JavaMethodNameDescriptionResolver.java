@@ -42,32 +42,10 @@ class JavaMethodNameDescriptionResolver implements DescriptionResolver {
 
     public static DescriptionResolver request() {
         return new JavaMethodNameDescriptionResolver("request");
-//        return new DescriptionResolver() {
-//            @Override
-//            public String resolve(ExecutionContext executionContext, HttpRequest.HttpMethod method, SystemAlias from, HttpUri to) {
-//                return "";
-//            }
-//
-//            @Override
-//            public String resolve(ExecutionContext executionContext, SystemAlias from, HttpUri to) {
-//                return "";
-//            }
-//        };
     }
 
     public static DescriptionResolver response() {
         return new JavaMethodNameDescriptionResolver("response");
-//        return new DescriptionResolver() {
-//            @Override
-//            public String resolve(ExecutionContext executionContext, HttpRequest.HttpMethod method, SystemAlias from, HttpUri to) {
-//                return "";
-//            }
-//
-//            @Override
-//            public String resolve(ExecutionContext executionContext, SystemAlias from, HttpUri to) {
-//                return "";
-//            }
-//        };
     }
 
 }

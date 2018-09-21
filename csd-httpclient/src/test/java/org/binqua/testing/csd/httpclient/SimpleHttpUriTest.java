@@ -17,7 +17,7 @@ public class SimpleHttpUriTest {
 
         final SimpleHttpUri httpUri = new SimpleHttpUri(anAlias("A"), "some/uri");
 
-        assertThat(asString(httpUri.asJson()), is(replaceSingleQuotes("{'uri':'some/uri','description':'some/uri','alias':'A'}")));
+        assertThat(asString(httpUri.asJson()), is(afterReplacingSingleQuotes("{'uri':'some/uri','description':'some/uri','alias':'A'}")));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class SimpleHttpUriTest {
 
         final SimpleHttpUri httpUri = new SimpleHttpUri(anAlias("A"), "some/uri", "some description");
 
-        assertThat(asString(httpUri.asJson()), is(replaceSingleQuotes("{'uri':'some/uri','description':'some description','alias':'A'}")));
+        assertThat(asString(httpUri.asJson()), is(afterReplacingSingleQuotes("{'uri':'some/uri','description':'some description','alias':'A'}")));
     }
 
     private SystemAlias anAlias(final String name) {
@@ -41,7 +41,7 @@ public class SimpleHttpUriTest {
         return new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create().toJson(jsonElement);
     }
 
-    private String replaceSingleQuotes(java.lang.String expectedJson) {
+    private String afterReplacingSingleQuotes(java.lang.String expectedJson) {
         return expectedJson.replaceAll("'", "\"");
     }
 

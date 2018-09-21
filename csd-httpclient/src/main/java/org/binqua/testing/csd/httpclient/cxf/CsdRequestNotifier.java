@@ -33,7 +33,7 @@ class CsdRequestNotifier implements ClientRequestFilter {
     }
 
     @Override
-    public void filter(ClientRequestContext clientRequestContext) throws IOException {
+    public void filter(ClientRequestContext clientRequestContext) {
         final HttpRequest httpRequest = httpParametersFactory.newHttpRequest(
                 ExecutionContext.currentExecutionContext(),
                 thisSystemAlias,
