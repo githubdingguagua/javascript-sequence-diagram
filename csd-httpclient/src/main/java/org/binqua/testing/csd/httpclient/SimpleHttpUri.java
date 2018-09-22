@@ -20,6 +20,10 @@ public class SimpleHttpUri implements HttpUri {
         this(alias, uri, uri);
     }
 
+    public static SimpleHttpUri aSimpleHttpUri(SystemAlias alias, String uri) {
+        return new SimpleHttpUri(alias, uri, uri);
+    }
+
     SimpleHttpUri(SystemAlias alias, String uri, String description) {
         this.alias = alias;
         this.uri = uri;

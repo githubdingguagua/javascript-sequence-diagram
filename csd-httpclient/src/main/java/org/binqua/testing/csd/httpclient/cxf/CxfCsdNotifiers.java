@@ -1,13 +1,12 @@
 package org.binqua.testing.csd.httpclient.cxf;
 
 import org.binqua.testing.csd.client.jms.ExternalSimpleCsdJmsSenderFactoryDecorator;
+import org.binqua.testing.csd.client.mockito.SimpleHttpUriFactory;
 import org.binqua.testing.csd.client.mockito.SimpleMockitoNotifier;
-import org.binqua.testing.csd.client.mongo.MongoNotifierFactoryImplementation;
 import org.binqua.testing.csd.external.*;
 import org.binqua.testing.csd.external.core.IdentifierGenerator;
 import org.binqua.testing.csd.external.core.MessageObserver;
 import org.binqua.testing.csd.httpclient.HttpParametersFactory;
-import org.binqua.testing.csd.mongo.external.MongoNotifierFactory;
 
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.ClientResponseFilter;
@@ -28,7 +27,7 @@ public class CxfCsdNotifiers implements CsdNotifiers {
         this.responseNotifier = new CsdResponseNotifier(httpParametersFactory, messageObserver);
         this.senderFactory = new ExternalSimpleCsdJmsSenderFactoryDecorator(thisSystemAlias, urlAliasResolver, messageObserver, identifierGenerator);
 //        this.mongoNotifierFactory = new MongoNotifierFactoryImplementation(thisSystemAlias, urlAliasResolver, messageObserver, identifierGenerator);
-        this.mockitoNotifier = new SimpleMockitoNotifier(thisSystemAlias, httpParametersFactory, messageObserver, new UrlBasedMicroserviceAliasResolver());
+        this.mockitoNotifier = new SimpleMockitoNotifier(thisSystemAlias, httpParametersFactory, messageObserver, urlAliasResolver, new SimpleHttpUriFactory(), new SimpleHttpMethodExtractor());
     }
 
     @Override

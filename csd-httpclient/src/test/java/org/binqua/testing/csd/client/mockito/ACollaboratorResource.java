@@ -1,6 +1,8 @@
 package org.binqua.testing.csd.client.mockito;
 
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+
 import javax.ws.rs.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -33,5 +35,24 @@ public interface ACollaboratorResource {
     @POST
     @Path("prefix2/{aRequestArgument}")
     ABean postABeanWith1RequestParameter(@PathParam("aRequestArgument") RequestArgument requestArgument);
+
+    @GET
+    ABean getMethod();
+
+    @DELETE
+    ABean deleteMethod();
+
+    @POST
+    ABean postMethod();
+
+    @PUT
+    ABean putMethod();
+
+    ABean methodWithNoAnnotation();
+
+    @PUT
+    @GET
+    ABean methodWithMoreTheOneHttpAnnotation();
+
 
 }
