@@ -1,25 +1,14 @@
 package org.binqua.testing.csd.bridge.external.hazelcast;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.client.config.ClientNetworkConfig;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.GroupConfig;
-import com.hazelcast.config.InterfacesConfig;
-import com.hazelcast.config.JoinConfig;
-import com.hazelcast.config.MulticastConfig;
-import com.hazelcast.config.NetworkConfig;
-import com.hazelcast.config.SerializationConfig;
-import com.hazelcast.config.SerializerConfig;
-
+import com.hazelcast.config.*;
 import org.binqua.testing.csd.client.jms.SimpleJmsMessage;
 import org.binqua.testing.csd.external.core.BodyFactory;
 import org.binqua.testing.csd.external.core.JsonXmlContentTypeBasedBodyFactory;
-import org.binqua.testing.csd.httpclient.SimpleHttpRequest;
-import org.binqua.testing.csd.httpclient.SimpleHttpRequestStreamSerializer;
-import org.binqua.testing.csd.httpclient.SimpleHttpResponse;
-import org.binqua.testing.csd.httpclient.SimpleHttpResponseStreamSerializer;
-import org.binqua.testing.csd.httpclient.SimpleJmsMessageStreamSerializer;
+import org.binqua.testing.csd.httpclient.*;
 
 import static java.util.Arrays.asList;
 
@@ -31,7 +20,7 @@ class Configuration {
 
     private static final String HAZELCAST_GROUP_NAME = "cucumber-sequence-diagram";
 
-    private static final BodyFactory MESSAGE_BODY_FACTORY = new JsonXmlContentTypeBasedBodyFactory();
+    private static final BodyFactory MESSAGE_BODY_FACTORY = new JsonXmlContentTypeBasedBodyFactory(new ObjectMapper());
 
     private static final SerializationConfig SERIALIZATION_CONFIG = new SerializationConfig()
         .addSerializerConfig(new SerializerConfig()

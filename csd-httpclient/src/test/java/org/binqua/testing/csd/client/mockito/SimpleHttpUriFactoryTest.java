@@ -29,6 +29,34 @@ public class SimpleHttpUriFactoryTest {
     }
 
     @Test
+    public void givenAMethodWith1PathParamAnd1QueryParamThenGetMethodCanBeExtractedAndUrlMappedToMethodArguments() throws NoSuchMethodException {
+
+        Method aResourceMethodUnderExecution = ACollaboratorResource.class.getMethod("getABeanWith1PathParamAnd1QueryParam", RequestArgument.class, String.class);
+
+        final Object[] methodUnderExecutionArguments = {new RequestArgument("a0"), "queryParam0Value"};
+
+        assertThat(
+                simpleHttpUriFactory.createHttpUri(aResourceMethodUnderExecution, methodUnderExecutionArguments, MICROSERVICE_CALLEE_ROOT_URL),
+                is(equalTo("http://microservice/callee/root/url/prefix1/prefix2/a0?queryParam0=queryParam0Value"))
+        );
+
+    }
+
+    @Test
+    public void givenAMethodWithOnlyQueryParametersThenGetMethodCanBeExtractedAndUrlMappedToMethodArguments() throws NoSuchMethodException {
+
+        Method aResourceMethodUnderExecution = ACollaboratorResource.class.getMethod("getABeanOnlyQueryParams", String.class, String.class);
+
+        final Object[] methodUnderExecutionArguments = {"queryParamAValue", "queryParamBValue"};
+
+        assertThat(
+                simpleHttpUriFactory.createHttpUri(aResourceMethodUnderExecution, methodUnderExecutionArguments, MICROSERVICE_CALLEE_ROOT_URL),
+                is(equalTo("http://microservice/callee/root/url/prefix1/prefix2?queryParamA=queryParamAValue&queryParamB=queryParamBValue"))
+        );
+
+    }
+
+    @Test
     public void givenAMethodWithOnly1PathParamsThenGetMethodCanBeExtractedAndUrlMappedToMethodArguments() throws NoSuchMethodException {
 
         Method aResourceMethodUnderExecution = ACollaboratorResource.class.getMethod("getABeanWith1RequestParameters", RequestArgument.class);
@@ -83,7 +111,6 @@ public class SimpleHttpUriFactoryTest {
         );
 
     }
-
 
     @Test
     public void givenAResourceWithNoPathParamsAtMethodLevelThenGetMethodCanBeExtractedAndUrlMappedToMethodArguments() throws NoSuchMethodException {

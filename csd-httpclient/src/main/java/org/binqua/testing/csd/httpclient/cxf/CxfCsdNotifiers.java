@@ -1,6 +1,8 @@
 package org.binqua.testing.csd.httpclient.cxf;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.binqua.testing.csd.client.jms.ExternalSimpleCsdJmsSenderFactoryDecorator;
+import org.binqua.testing.csd.client.mockito.ProductionCodeRunningPredicate;
 import org.binqua.testing.csd.client.mockito.SimpleHttpUriFactory;
 import org.binqua.testing.csd.client.mockito.SimpleMockitoNotifier;
 import org.binqua.testing.csd.external.*;
@@ -22,12 +24,20 @@ public class CxfCsdNotifiers implements CsdNotifiers {
                            HttpParametersFactory httpParametersFactory,
                            IdentifierGenerator identifierGenerator,
                            UrlAliasResolver urlAliasResolver,
-                           MessageObserver messageObserver) {
+                           MessageObserver messageObserver,
+                           ObjectMapper objectMapper) {
         this.requestNotifier = new CsdRequestNotifier(thisSystemAlias, httpParametersFactory, urlAliasResolver, messageObserver);
         this.responseNotifier = new CsdResponseNotifier(httpParametersFactory, messageObserver);
         this.senderFactory = new ExternalSimpleCsdJmsSenderFactoryDecorator(thisSystemAlias, urlAliasResolver, messageObserver, identifierGenerator);
 //        this.mongoNotifierFactory = new MongoNotifierFactoryImplementation(thisSystemAlias, urlAliasResolver, messageObserver, identifierGenerator);
-        this.mockitoNotifier = new SimpleMockitoNotifier(thisSystemAlias, httpParametersFactory, messageObserver, urlAliasResolver, new SimpleHttpUriFactory(), new SimpleHttpMethodExtractor());
+        this.mockitoNotifier = new SimpleMockitoNotifier(thisSystemAlias,
+                httpParametersFactory,
+                messageObserver,
+                urlAliasResolver,
+                new SimpleHttpUriFactory(),
+                new SimpleHttpMethodExtractor(),
+                new SimpleRequestBodyExtractor(),
+                new ProductionCodeRunningPredicate());
     }
 
     @Override

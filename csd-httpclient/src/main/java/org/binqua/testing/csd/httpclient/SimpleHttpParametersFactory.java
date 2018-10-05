@@ -30,13 +30,13 @@ public class SimpleHttpParametersFactory implements HttpParametersFactory {
         final String description = descriptionResolverFactory.request().resolve(context, method, callerSystem, httpUri);
         final Body messageBody = bodyFactory.createAMessageBody(httpBody.value(), headers);
         return new SimpleHttpRequest(description,
-                                     messageBody,
-                                     requestIdentifier,
-                                     correlationId,
-                                     callerSystem,
-                                     method,
-                                     httpUri,
-                                     headers
+                messageBody,
+                requestIdentifier,
+                correlationId,
+                callerSystem,
+                method,
+                httpUri,
+                headers
         );
     }
 
@@ -46,15 +46,50 @@ public class SimpleHttpParametersFactory implements HttpParametersFactory {
         final String description = descriptionResolverFactory.response().resolve(context, httpRequest.from(), httpRequest.uri());
         final Body messageBody = bodyFactory.createAMessageBody(httpBody.value(), headers);
         return new SimpleHttpResponse(description,
-                                      messageBody,
-                                      responseIdentifier,
-                                      status,
-                                      headers,
-                                      new SimpleSystemAlias(httpRequest.uri().alias().name()),
-                                      new SimpleSystemAlias(httpRequest.callerSystem().name()),
-                                      httpRequest.correlationIdentifier()
+                messageBody,
+                responseIdentifier,
+                status,
+                headers,
+                new SimpleSystemAlias(httpRequest.uri().alias().name()),
+                new SimpleSystemAlias(httpRequest.callerSystem().name()),
+                httpRequest.correlationIdentifier()
         );
     }
+
+    @Override
+    public HttpRequest newDirectHttpMethodCallRequest(ExecutionContext context,
+                                      SystemAlias callerSystem,
+                                      HttpRequest.HttpMethod method,
+                                      Object body,
+                                      HttpUri httpUri) {
+        final Identifier correlationId = identifierGenerator.newIdentifier();
+        final Identifier requestIdentifier = aPrefixedIdentifier("request", correlationId);
+        final String description = descriptionResolverFactory.request().resolve(context, method, callerSystem, httpUri);
+        final Body messageBody = bodyFactory.createAJsonMessageBody(body);
+        return new SimpleDirectHttpMethodCallRequest(description,
+                messageBody,
+                requestIdentifier,
+                correlationId,
+                callerSystem,
+                method,
+                httpUri
+        );
+    }
+
+    @Override
+    public HttpMessage newDirectHttpMethodCallResponse(ExecutionContext context, HttpRequest httpRequest, Object body) {
+        final Identifier responseIdentifier = aPrefixedIdentifier("response", identifierGenerator.newIdentifier());
+        final String description = descriptionResolverFactory.response().resolve(context, httpRequest.from(), httpRequest.uri());
+        final Body messageBody = bodyFactory.createAJsonMessageBody(body);
+        return new SimpleDirectHttpMethodCallResponse(description,
+                messageBody,
+                responseIdentifier,
+                new SimpleSystemAlias(httpRequest.uri().alias().name()),
+                new SimpleSystemAlias(httpRequest.callerSystem().name()),
+                httpRequest.correlationIdentifier()
+        );
+    }
+
 
     private Identifier aPrefixedIdentifier(final String prefix, final Identifier correlationId) {
         return new SimpleIdentifier(prefix + "-" + correlationId.id());

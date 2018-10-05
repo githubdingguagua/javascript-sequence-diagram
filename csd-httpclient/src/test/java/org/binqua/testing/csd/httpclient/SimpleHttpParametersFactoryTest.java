@@ -2,18 +2,18 @@ package org.binqua.testing.csd.httpclient;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.binqua.testing.csd.external.core.*;
-import org.junit.Test;
 import org.binqua.testing.csd.external.SimpleSystemAlias;
 import org.binqua.testing.csd.external.SystemAlias;
+import org.binqua.testing.csd.external.core.*;
+import org.junit.Test;
 
 import java.util.HashMap;
 
+import static org.binqua.testing.csd.httpclient.HttpClientParameters.HttpBody.aBodyWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.binqua.testing.csd.httpclient.HttpClientParameters.HttpBody.aBodyWith;
 
 public class SimpleHttpParametersFactoryTest {
 
@@ -25,7 +25,7 @@ public class SimpleHttpParametersFactoryTest {
     private final ExecutionContext anExecutionContext = mock(ExecutionContext.class);
     private final DescriptionResolver aDescriptionResolver = mock(DescriptionResolver.class);
     private final BodyFactory bodyFactory = mock(BodyFactory.class);
-    private final Body aMessageBody = mock(Body.class);
+    private final Body aMessageBody = mock(Body.class,"message body");
     private final Headers headers = someHeaders("b", 1);
 
     private final HttpParametersFactory factory = new SimpleHttpParametersFactory(identifierGenerator,
@@ -115,28 +115,85 @@ public class SimpleHttpParametersFactoryTest {
 
     }
 
-    private HttpUri anUri(final SystemAlias systemAlias) {
-        return new HttpUri() {
-            @Override
-            public JsonElement asJson() {
-                return null;
-            }
+    @Test
+    public void newDirectHttpMethodCallRequest() {
+        final String aRequestDescription = "the request description";
+        final TheBodyOfTheRequest theBodyOfTheRequest = new TheBodyOfTheRequest();
 
-            @Override
-            public String value() {
-                return null;
-            }
+        when(descriptionResolverFactory.request()).thenReturn(aDescriptionResolver);
+        when(aDescriptionResolver.resolve(anExecutionContext, HttpMessage.HttpMethod.GET, FROM_SYSTEM, aHttpUri)).thenReturn(aRequestDescription);
+        when(bodyFactory.createAJsonMessageBody(theBodyOfTheRequest)).thenReturn(aMessageBody);
 
-            @Override
-            public String description() {
-                return null;
-            }
+        when(identifierGenerator.newIdentifier()).thenReturn(anIdentifier("1"));
+        when(aHttpUri.asJson()).thenReturn(someJsonWithKeyValue("a", 1));
+        when(aHttpUri.alias()).thenReturn(TO_SYSTEM);
+        when(aHttpUri.value()).thenReturn("http://localhost:8365/something");
 
-            @Override
-            public SystemAlias alias() {
-                return systemAlias;
-            }
-        };
+        when(aMessageBody.asJson()).thenReturn(new JsonObject());
+
+
+        final HttpRequest actualHttpRequest = factory.newDirectHttpMethodCallRequest(anExecutionContext,
+                FROM_SYSTEM,
+                HttpMessage.HttpMethod.GET,
+                theBodyOfTheRequest,
+                aHttpUri);
+
+        final String expectedJson = replaceSingleQuotes(
+                "{"
+                        + "'from':'A',"
+                        + "'to':{'a':1},"
+                        + "'type':'request',"
+                        + "'headers':{'http-headers':{}},"
+                        + "'body':{},"
+                        + "'id':'request-1',"
+                        + "'correlationId':'1',"
+                        + "'method':'GET',"
+                        + "'description':'the request description'"
+                        +"}");
+
+        assertThat(actualHttpRequest.asJson(), is(expectedJson));
+    }
+
+    @Test
+    public void newDirectHttpMethodCallResponse() {
+        final String aResponseDescription = "the response description";
+        final Object bodyResponse = new Object();
+
+        final HttpRequest httpRequest = mock(HttpRequest.class);
+
+        when(httpRequest.method()).thenReturn(HttpMessage.HttpMethod.POST);
+        when(identifierGenerator.newIdentifier()).thenReturn(anIdentifier("1"));
+
+        when(descriptionResolverFactory.response()).thenReturn(aDescriptionResolver);
+        when(aDescriptionResolver.resolve(anExecutionContext, FROM_SYSTEM, aHttpUri)).thenReturn(aResponseDescription);
+
+        when(httpRequest.correlationIdentifier()).thenReturn(anIdentifier("2"));
+        when(httpRequest.from()).thenReturn(FROM_SYSTEM);
+        when(httpRequest.to()).thenReturn(TO_SYSTEM);
+
+        when(httpRequest.callerSystem()).thenReturn(FROM_SYSTEM);
+        when(httpRequest.uri()).thenReturn(aHttpUri);
+        when(aHttpUri.alias()).thenReturn(TO_SYSTEM);
+        when(aHttpUri.value()).thenReturn("http://localhost:8365/something");
+
+        when(bodyFactory.createAJsonMessageBody(bodyResponse)).thenReturn(aMessageBody);
+        when(aMessageBody.asJson()).thenReturn(new JsonObject());
+
+        HttpMessage httpResponse = factory.newDirectHttpMethodCallResponse(anExecutionContext, httpRequest, bodyResponse);
+
+        final String expectedJson = replaceSingleQuotes("{"
+                + "'from':'B',"
+                + "'to':'A',"
+                + "'type':'response',"
+                + "'headers':{'http-headers':{}},"
+                + "'body':{},"
+                + "'id':'response-1',"
+                + "'correlationId':'2',"
+                + "'description':'the response description'"
+                + "}");
+
+        assertThat(httpResponse.asJson(), is(expectedJson));
+
     }
 
     private JsonElement someJsonWithKeyValue(String key, int value) {
@@ -175,5 +232,8 @@ public class SimpleHttpParametersFactoryTest {
                 return null;
             }
         };
+    }
+
+    private class TheBodyOfTheRequest {
     }
 }

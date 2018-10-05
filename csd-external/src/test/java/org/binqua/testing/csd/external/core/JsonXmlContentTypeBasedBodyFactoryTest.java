@@ -1,8 +1,11 @@
 package org.binqua.testing.csd.external.core;
 
-import org.junit.Test;
-
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.binqua.testing.csd.external.core.Body.ContentType;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +20,9 @@ public class JsonXmlContentTypeBasedBodyFactoryTest {
 
     private final Headers httHeaders = mock(Headers.class);
 
-    private final BodyFactory bodyFactoryUnderTest = new JsonXmlContentTypeBasedBodyFactory();
+    private final ObjectMapper objectMapperForTestPurpose = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
+    private final BodyFactory bodyFactoryUnderTest = new JsonXmlContentTypeBasedBodyFactory(objectMapperForTestPurpose);
 
     @Test
     public void xmlBodyCanBeConstructedFromApplicationXml() {
@@ -90,6 +95,35 @@ public class JsonXmlContentTypeBasedBodyFactoryTest {
         assertThat(bodyFactoryUnderTest.createAMessageBody(bodyContent, httHeaders), is(expectedTextMessageBody));
         assertThat(bodyFactoryUnderTest.createAMessageBody(bodyContent, ContentType.TEXT), is(expectedTextMessageBody));
 
+    }
+
+    @Test
+    public void canCreateAJsonMessageBodyViaTheObjectMapper() {
+        assertThat(bodyFactoryUnderTest.createAJsonMessageBody(new ABean("rob")), is(new JsonBody("{\n  \"name\": \"rob\"\n}")));
+    }
+
+    @Test
+    public void canCreateAJsonMessageBodyViaTheObjectMapperEvenIfConversionToJsonFails() {
+        final JsonXmlContentTypeBasedBodyFactory bodyFactoryUnderTest = new JsonXmlContentTypeBasedBodyFactory(anObjectMapperThatCannotSerialisedABean());
+
+        assertThat(bodyFactoryUnderTest.createAJsonMessageBody(new ABean("bob")), is(new JsonBody("{\n  \"exception\": \"could not create a json body for <Bean toString>\"\n}")));
+    }
+
+    private ObjectMapper anObjectMapperThatCannotSerialisedABean() {
+        return new ObjectMapper();
+    }
+
+    class ABean  {
+        private String name;
+
+        ABean(@JsonProperty("name") String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "<Bean toString>";
+        }
     }
 
 }

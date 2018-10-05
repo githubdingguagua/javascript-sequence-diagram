@@ -1,8 +1,6 @@
 package org.binqua.testing.csd.client.mockito;
 
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
 import javax.ws.rs.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -19,6 +17,14 @@ public interface ACollaboratorResource {
     @GET
     @Path("prefix2/{aRequestArgument0}")
     ABean getABeanWith1RequestParameters(@PathParam("aRequestArgument0") RequestArgument requestArgument0);
+
+    @GET
+    @Path("prefix2/{aRequestArgument0}")
+    ABean getABeanWith1PathParamAnd1QueryParam(@PathParam("aRequestArgument0") RequestArgument requestArgument0, @QueryParam("queryParam0") String aQueryParam);
+
+    @GET
+    @Path("prefix2/")
+    ABean getABeanOnlyQueryParams(@QueryParam("queryParamA") String aQueryParam0, @QueryParam("queryParamB") String aQueryParam1);
 
     @GET
     @Path("prefix2/{aRequestArgument0}/{aRequestArgument1}")

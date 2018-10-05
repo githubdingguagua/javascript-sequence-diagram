@@ -48,27 +48,29 @@ public class SimpleHttpMethodExtractorTest {
 
     @Test
     public void methodWithNoAnnotation() throws NoSuchMethodException {
-        final Try<HttpMessage.HttpMethod> actualResult = simpleHttpMethodExtractor.extractHttpMethodFrom(ACollaboratorResource.class.getMethod("methodWithNoAnnotation"));
+        final String methodWithNoAnnotation = "methodWithNoAnnotation";
+        final Try<HttpMessage.HttpMethod> actualResult = simpleHttpMethodExtractor.extractHttpMethodFrom(ACollaboratorResource.class.getMethod(methodWithNoAnnotation));
         assertThat(
                 actualResult.getCause(),
                 is(instanceOf(IllegalStateException.class))
         );
         assertThat(
                 actualResult.getCause().getMessage(),
-                is(equalTo(""))
+                is(equalTo("One http method annotation is necessary for method " + methodWithNoAnnotation + " in " + ACollaboratorResource.class.getCanonicalName() + " but no annotation has been provided"))
         );
     }
 
     @Test
     public void methodWithMoreTheOneHttpAnnotation() throws NoSuchMethodException {
-        final Try<HttpMessage.HttpMethod> actualResult = simpleHttpMethodExtractor.extractHttpMethodFrom(ACollaboratorResource.class.getMethod("methodWithMoreTheOneHttpAnnotation"));
+        final String methodAnalysed = "methodWithMoreTheOneHttpAnnotation";
+        final Try<HttpMessage.HttpMethod> actualResult = simpleHttpMethodExtractor.extractHttpMethodFrom(ACollaboratorResource.class.getMethod(methodAnalysed));
         assertThat(
                 actualResult.getCause(),
                 is(instanceOf(IllegalStateException.class))
         );
         assertThat(
                 actualResult.getCause().getMessage(),
-                is(equalTo("Only one http method is allowed but @GET and @PUT have been found for method methodWithMoreTheOneHttpAnnotation in " + ACollaboratorResource.class.getCanonicalName()))
+                is(equalTo("Only one http method is allowed but @PUT and @GET have been found for method " + methodAnalysed + " in " + ACollaboratorResource.class.getCanonicalName()))
         );
     }
 }

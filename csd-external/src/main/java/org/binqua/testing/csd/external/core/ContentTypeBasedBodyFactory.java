@@ -1,5 +1,8 @@
 package org.binqua.testing.csd.external.core;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +18,11 @@ class ContentTypeBasedBodyFactory implements BodyFactory {
     };
 
     private ContentTypeBodyRepresentationMapping contentTypeBodyRepresentationMapping;
+    private ObjectMapper objectMapper;
 
-    ContentTypeBasedBodyFactory(ContentTypeBodyRepresentationMapping contentTypeBodyRepresentationMapping) {
+    ContentTypeBasedBodyFactory(ContentTypeBodyRepresentationMapping contentTypeBodyRepresentationMapping, ObjectMapper objectMapper) {
         this.contentTypeBodyRepresentationMapping = contentTypeBodyRepresentationMapping;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -30,6 +35,15 @@ class ContentTypeBasedBodyFactory implements BodyFactory {
     public Body createAMessageBody(String bodyValue, Body.ContentType contentType) {
         final MessageBodyFactory messageBodyFactory = contentTypePrettyPrinterMap.get(contentType);
         return messageBodyFactory == null ? new TextBody(bodyValue): messageBodyFactory.createABody(bodyValue);
+    }
+
+    @Override
+    public Body createAJsonMessageBody(Object body) {
+        try {
+            return new JsonBody(objectMapper.writeValueAsString(body));
+        } catch (JsonProcessingException e) {
+            return new JsonBody("{'exception':'could not create a json body for "+body.toString()+"'}");
+        }
     }
 
     private String retrieveContentTypeFromHeaders(Headers headers) {

@@ -18,4 +18,14 @@ public interface HttpParametersFactory {
                                  HttpClientParameters.HttpBody httpBody,
                                  Headers headers);
 
+    HttpRequest newDirectHttpMethodCallRequest(ExecutionContext context,
+                                               SystemAlias callerSystem,
+                                               HttpRequest.HttpMethod method,
+                                               Object body,
+                                               HttpUri httpUri);
+
+    HttpMessage newDirectHttpMethodCallResponse(ExecutionContext context,
+                                                HttpRequest httpRequest,
+                                                Object body);
+
 }

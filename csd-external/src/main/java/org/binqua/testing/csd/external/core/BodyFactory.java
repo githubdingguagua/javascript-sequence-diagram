@@ -6,4 +6,6 @@ public interface BodyFactory {
 
     Body createAMessageBody(String value, Body.ContentType contentType);
 
+    Body createAJsonMessageBody(Object body);
+
 }

@@ -9,11 +9,11 @@ import org.binqua.testing.csd.httpclient.*;
 import org.mockito.internal.invocation.InterceptedInvocation;
 import org.mockito.listeners.MethodInvocationReport;
 
-import javax.ws.rs.GET;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.function.Predicate;
+
+import static io.vavr.API.*;
+import static io.vavr.Predicates.is;
 
 public class SimpleMockitoNotifier implements MockitoNotifier {
 
@@ -22,51 +22,76 @@ public class SimpleMockitoNotifier implements MockitoNotifier {
     private MessageObserver messageObserver;
     private UrlAliasResolver urlAliasResolver;
     private HttpUriFactory httpUriFactory;
+    private HttpMethodExtractor httpMethodExtractor;
+    private RequestBodyExtractor requestBodyExtractor;
+    private Predicate<MethodInvocationReport> productionCodeRunningPredicate;
 
-    public SimpleMockitoNotifier(SystemAlias callerSystemAlias, HttpParametersFactory httpParametersFactory, MessageObserver messageObserver, UrlAliasResolver urlAliasResolver, HttpUriFactory httpUriFactory, HttpMethodExtractor httpMethodExtractor) {
+    public SimpleMockitoNotifier(SystemAlias callerSystemAlias,
+                                 HttpParametersFactory httpParametersFactory,
+                                 MessageObserver messageObserver,
+                                 UrlAliasResolver urlAliasResolver,
+                                 HttpUriFactory httpUriFactory,
+                                 HttpMethodExtractor httpMethodExtractor,
+                                 RequestBodyExtractor requestBodyExtractor,
+                                 Predicate<MethodInvocationReport> productionCodeRunningPredicate) {
         this.callerSystemAlias = callerSystemAlias;
         this.httpParametersFactory = httpParametersFactory;
         this.messageObserver = messageObserver;
         this.urlAliasResolver = urlAliasResolver;
         this.httpUriFactory = httpUriFactory;
+        this.httpMethodExtractor = httpMethodExtractor;
+        this.requestBodyExtractor = requestBodyExtractor;
+        this.productionCodeRunningPredicate = productionCodeRunningPredicate;
     }
 
     @Override
     public void notify(MethodInvocationReport methodInvocationReport, String microserviceCalleeRootUrl) {
+
+        final boolean isInsideProductionCode = productionCodeRunningPredicate.test(methodInvocationReport);
+
+        Match(isInsideProductionCode).of(
+                Case($(is(true)), o -> run(() -> notifyRequestAndResponse(methodInvocationReport, microserviceCalleeRootUrl))),
+                Case($(is(false)), o -> run(() -> {
+                }))
+        );
+
+    }
+
+    private void notifyRequestAndResponse(MethodInvocationReport methodInvocationReport, String microserviceCalleeRootUrl) {
+
         final InterceptedInvocation interceptedInvocation = (InterceptedInvocation) methodInvocationReport.getInvocation();
 
         final Method methodUnderExecution = interceptedInvocation.getMethod();
-        final HttpMessage.HttpMethod httpMethod = httpMethodFrom(methodUnderExecution);
 
-        messageObserver.notify(httpParametersFactory.newHttpRequest(
-                new ExecutionContext(methodUnderExecution, interceptedInvocation.getArguments()),
+        final Object[] methodUnderExecutionArguments = interceptedInvocation.getArguments();
+
+        final SimpleHttpUri calleeHttpUri = new SimpleHttpUri(
+                new SimpleSystemAlias(urlAliasResolver.aliasFromUrl(microserviceCalleeRootUrl)),
+                httpUriFactory.createHttpUri(methodUnderExecution, methodUnderExecutionArguments, microserviceCalleeRootUrl)
+        );
+
+        final HttpMessage.HttpMethod httpMethod = httpMethodExtractor.extractHttpMethodFrom(methodUnderExecution).get();
+
+        final ExecutionContext executionContext = new ExecutionContext(methodUnderExecution, methodUnderExecutionArguments);
+
+        final HttpRequest requestToBeNotified = httpParametersFactory.newDirectHttpMethodCallRequest(
+                executionContext,
                 callerSystemAlias,
                 httpMethod,
-                bodyFrom(methodUnderExecution, httpMethod),
-                new SimpleHttpUri(
-                        new SimpleSystemAlias(urlAliasResolver.aliasFromUrl(microserviceCalleeRootUrl)),
-                        httpUriFactory.createHttpUri(methodUnderExecution, interceptedInvocation.getArguments(), microserviceCalleeRootUrl)
-                ),
-                new SimpleHeaders()
+                requestBodyExtractor.extractBodyFrom(methodUnderExecution, methodUnderExecutionArguments),
+                calleeHttpUri
+        );
 
-        ));
+        final Object returnedValue = methodInvocationReport.getReturnedValue();
+        final HttpMessage responseToBeNotified = httpParametersFactory.newDirectHttpMethodCallResponse(
+                executionContext,
+                requestToBeNotified,
+                returnedValue
+        );
 
+        messageObserver.notify(requestToBeNotified);
+        messageObserver.notify(responseToBeNotified);
     }
 
-    private HttpClientParameters.HttpBody bodyFrom(Method methodUnderExecution, HttpMessage.HttpMethod httpMethod) {
-        if (httpMethod == HttpMessage.HttpMethod.GET) {
-            return HttpClientParameters.HttpBody.empty();
-        }
-        return null;
-    }
 
-    private HttpMessage.HttpMethod httpMethodFrom(Method methodUnderExecution) {
-        Annotation[] declaredAnnotations = methodUnderExecution.getDeclaredAnnotations();
-        Optional<String> maybeAHttpMethod = Arrays.stream(declaredAnnotations)
-                .map(annotation -> annotation.annotationType().getSimpleName())
-                .filter(name -> name.equals(GET.class.getSimpleName()))
-                .findFirst();
-
-        return HttpMessage.HttpMethod.toHttpMethod("GET");
-    }
 }
