@@ -18,6 +18,7 @@
         <module>csd-html</module>
         <module>csd-cucumber-reports</module>
         <module>csd-java</module>
+        <module>csd-examples</module>
         <!--<module>csd-acceptance-hazelcast-test</module>-->
         <!--<module>csd-multiple-reports-webapp</module>-->
     </modules>
@@ -152,6 +153,12 @@
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
                 <version>0.9.9</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tngtech.jgiven</groupId>
+                <artifactId>jgiven-core</artifactId>
+                <version>0.16.0</version>
             </dependency>
             <!-- test dependencies-->
 

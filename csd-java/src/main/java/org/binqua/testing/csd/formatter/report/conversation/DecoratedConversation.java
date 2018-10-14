@@ -1,11 +1,6 @@
 package org.binqua.testing.csd.formatter.report.conversation;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-
+import com.google.gson.*;
 import org.binqua.testing.csd.bridge.external.Conversation;
 import org.binqua.testing.csd.bridge.external.StepId;
 import org.binqua.testing.csd.external.core.Message;
@@ -16,15 +11,15 @@ import org.binqua.testing.csd.formatter.svg.SequenceDiagramGenerator;
 import java.util.List;
 import java.util.Map;
 
-class DecoratedConversation implements ToJson {
+public class DecoratedConversation implements ToJson {
 
     private final MessageDescriptionDictionary messageDescriptionDictionary;
     private final SequenceDiagramGenerator sequenceDiagramGenerator;
     private final Conversation conversation;
 
-    DecoratedConversation(SequenceDiagramGenerator sequenceDiagramGenerator,
-                          Conversation conversation,
-                          MessageDescriptionDictionaryFactory messageDescriptionDictionaryFactory
+    public DecoratedConversation(SequenceDiagramGenerator sequenceDiagramGenerator,
+                                 Conversation conversation,
+                                 MessageDescriptionDictionaryFactory messageDescriptionDictionaryFactory
     ) {
         this.conversation = conversation;
         this.sequenceDiagramGenerator = sequenceDiagramGenerator;
@@ -37,13 +32,13 @@ class DecoratedConversation implements ToJson {
         final JsonArray jsonArray = new JsonArray();
 
         messagesByStep
-            .keySet().forEach(stepId -> {
+                .keySet().forEach(stepId -> {
             jsonArray.add(stepAsJsonObject(
-                stepId,
-                messagesByStep.get(stepId),
-                sequenceDiagramGenerator,
-                messageDescriptionDictionary
-                          )
+                    stepId,
+                    messagesByStep.get(stepId),
+                    sequenceDiagramGenerator,
+                    messageDescriptionDictionary
+                    )
             );
         });
 

@@ -78,6 +78,11 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.tngtech.jgiven</groupId>
+            <artifactId>jgiven-core</artifactId>
+        </dependency>
+
         <!-- testing dependencies -->
 
         <dependency>

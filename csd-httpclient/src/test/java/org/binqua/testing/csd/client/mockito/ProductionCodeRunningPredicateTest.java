@@ -20,7 +20,7 @@ public class ProductionCodeRunningPredicateTest {
     private final ProductionCodeRunningPredicate productionCodeRunningPredicate = new ProductionCodeRunningPredicate();
 
     @Test
-    public void givenALocationWithComponentTestDotjavaThenIsNotProductionCodeRunning() {
+    public void givenALocationWithComponentTestDotJavaThenIsNotProductionCodeRunning() {
         when(methodInvocationReport.getInvocation()).thenReturn(describedInvocation);
         when(describedInvocation.getLocation()).thenReturn(location);
         when(location.toString()).thenReturn("uk.gov.dwp.universe.component.appointments.BookAppointmentComponentTest$GivenStage.setup_claimant(BookAppointmentComponentTest.java:198)");
@@ -36,4 +36,14 @@ public class ProductionCodeRunningPredicateTest {
 
         assertThat(productionCodeRunningPredicate.test(methodInvocationReport), is(true));
     }
+
+    @Test
+    public void givenALocationWithDotComponentDotAndDotCoreDotStagesDotGivenStagesDotThenIsNotProductionCodeRunning() {
+        when(methodInvocationReport.getInvocation()).thenReturn(describedInvocation);
+        when(describedInvocation.getLocation()).thenReturn(location);
+        when(location.toString()).thenReturn("-> at uk.gov.dwp.universe.component.core.stages.givenstages.ClaimantExistsGivenStage.lambda$createPersons$6(ClaimantExistsGivenStage.java:466)");
+
+        assertThat(productionCodeRunningPredicate.test(methodInvocationReport), is(false));
+    }
+
 }
