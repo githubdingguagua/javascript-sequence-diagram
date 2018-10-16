@@ -1,19 +1,19 @@
 package org.binqua.testing.csd.formatter.report.conversation;
 
-import org.binqua.testing.csd.formatter.external.Configuration;
-import org.binqua.testing.csd.formatter.report.assets.AssetsWriter;
-import org.binqua.testing.csd.formatter.report.featuremenu.FeatureMenuWriter;
-import org.binqua.testing.csd.formatter.report.featuremenu.TestFeaturesFactory;
-import org.binqua.testing.csd.formatter.report.screenshot.ScenarioScreenshots;
-import org.binqua.testing.csd.formatter.report.screenshot.ScreenshotNotifier;
-import org.binqua.testing.csd.formatter.report.screenshot.ScreenshotWriter;
 import org.binqua.testing.csd.bridge.external.Conversation;
 import org.binqua.testing.csd.bridge.external.ConversationSupport;
 import org.binqua.testing.csd.bridge.external.StepContext;
 import org.binqua.testing.csd.bridge.external.StepContextObserver;
 import org.binqua.testing.csd.cucumberreports.model.Feature;
+import org.binqua.testing.csd.formatter.external.Configuration;
+import org.binqua.testing.csd.formatter.report.assets.AssetsWriter;
+import org.binqua.testing.csd.formatter.report.featuremenu.FeatureMenuWriter;
 import org.binqua.testing.csd.formatter.report.featuremenu.TestFeatures;
+import org.binqua.testing.csd.formatter.report.featuremenu.TestFeaturesFactory;
+import org.binqua.testing.csd.formatter.report.screenshot.ScenarioScreenshots;
 import org.binqua.testing.csd.formatter.report.screenshot.Screenshot;
+import org.binqua.testing.csd.formatter.report.screenshot.ScreenshotNotifier;
+import org.binqua.testing.csd.formatter.report.screenshot.ScreenshotWriter;
 import org.binqua.testing.csd.formatter.util.IdGenerator;
 
 public class FeatureConversationCucumberNotifierImpl implements CucumberNotifier, ScreenshotNotifier {

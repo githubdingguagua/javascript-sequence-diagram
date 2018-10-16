@@ -4,6 +4,8 @@ import org.binqua.testing.csd.bridge.external.Conversation;
 import org.binqua.testing.csd.bridge.external.ConversationSupport;
 import org.binqua.testing.csd.bridge.external.StepContext;
 import org.binqua.testing.csd.cucumberreports.model.Feature;
+import org.binqua.testing.csd.formatter.builder.JGivenFeatureBuilder;
+import org.binqua.testing.csd.formatter.builder.JGivenFeatureBuilderFactory;
 import org.binqua.testing.csd.formatter.report.assets.AssetsWriter;
 import org.binqua.testing.csd.formatter.report.conversation.*;
 import org.binqua.testing.csd.formatter.report.featuremenu.FeatureMenuWriter;
@@ -17,6 +19,7 @@ public class JGivenTestObserver implements TestObserver {
     private final TestFeatures testFeatures;
     private AssetsWriter assetsWriter;
     private FeatureMenuWriter featureMenuWriter;
+    private JGivenFeatureBuilderFactory jGivenFeatureBuilderFactory;
     private IdGenerator scenarioIdGenerator;
     private IdGenerator featureIdGenerator;
     private FeatureConversationFactory featureConversationFactory;
@@ -27,6 +30,7 @@ public class JGivenTestObserver implements TestObserver {
     private FeatureIndexWriter featureIndexWriter;
     private FeatureConversation featureConversation;
     private Scenario scenario;
+    private JGivenFeatureBuilder aFeatureBuilder;
 
     public JGivenTestObserver(IdGenerator scenarioIdGenerator,
                               IdGenerator featureIdGenerator,
@@ -38,7 +42,8 @@ public class JGivenTestObserver implements TestObserver {
                               FeatureIndexWriter featureIndexWriter,
                               TestFeaturesFactory testFeaturesFactory,
                               AssetsWriter assetsWriter,
-                              FeatureMenuWriter featureMenuWriter) {
+                              FeatureMenuWriter featureMenuWriter,
+                              JGivenFeatureBuilderFactory jGivenFeatureBuilderFactory) {
         this.scenarioIdGenerator = scenarioIdGenerator;
         this.featureIdGenerator = featureIdGenerator;
         this.featureConversationFactory = featureConversationFactory;
@@ -50,18 +55,22 @@ public class JGivenTestObserver implements TestObserver {
         this.testFeatures = testFeaturesFactory.createTestFeatures();
         this.assetsWriter = assetsWriter;
         this.featureMenuWriter = featureMenuWriter;
+        this.jGivenFeatureBuilderFactory = jGivenFeatureBuilderFactory;
     }
 
     @Override
     public void notifyFeatureExecutionStarted(String featureId) {
         featureIdGenerator.record(featureId);
         featureConversation = featureConversationFactory.createAFeatureConversation();
+        aFeatureBuilder = jGivenFeatureBuilderFactory.createAFeatureBuilder();
+        aFeatureBuilder.withFeature(featureId);
     }
 
     @Override
     public void notifyScenarioExecutionStarted(String scenarioId) {
         final String internalScenarioId = scenarioIdGenerator.record(scenarioId);
         scenario = new Scenario(internalScenarioId, internalScenarioId);
+        aFeatureBuilder.withScenario(scenarioId);
     }
 
     @Override
