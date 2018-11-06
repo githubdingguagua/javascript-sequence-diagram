@@ -60,17 +60,17 @@ public class JGivenTestObserver implements TestObserver {
 
     @Override
     public void notifyFeatureExecutionStarted(String featureId) {
-        featureIdGenerator.record(featureId);
+        featureIdGenerator.record(featureId.toLowerCase());
         featureConversation = featureConversationFactory.createAFeatureConversation();
         aFeatureBuilder = jGivenFeatureBuilderFactory.createAFeatureBuilder();
-        aFeatureBuilder.withFeature(featureId);
+        aFeatureBuilder.withFeature(featureId.toLowerCase());
     }
 
     @Override
     public void notifyScenarioExecutionStarted(String scenarioId) {
-        final String internalScenarioId = scenarioIdGenerator.record(scenarioId);
+        final String internalScenarioId = scenarioIdGenerator.record(scenarioId.toLowerCase());
         scenario = new Scenario(internalScenarioId, internalScenarioId);
-        aFeatureBuilder.withScenario(scenarioId);
+        aFeatureBuilder.withScenario(scenarioId.toLowerCase());
     }
 
     @Override
@@ -82,9 +82,10 @@ public class JGivenTestObserver implements TestObserver {
     }
 
     @Override
-    public void notifyFeatureExecutionEnded(String cucumberFeatureId, Feature feature) {
-        featureReportWriter.write(cucumberFeatureId, featureConversation);
-        featureIndexWriter.write(cucumberFeatureId, feature);
+    public void notifyFeatureExecutionEnded(String cucumberFeatureId) {
+        featureReportWriter.write(cucumberFeatureId.toLowerCase(), featureConversation);
+        final Feature feature = aFeatureBuilder.build();
+        featureIndexWriter.write(cucumberFeatureId.toLowerCase(), feature);
         testFeatures.add(feature);
     }
 

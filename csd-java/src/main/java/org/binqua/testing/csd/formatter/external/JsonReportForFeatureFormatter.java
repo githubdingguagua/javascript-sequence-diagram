@@ -1,25 +1,17 @@
 package org.binqua.testing.csd.formatter.external;
 
-import org.binqua.testing.csd.formatter.builder.FeatureBuilderFactory;
-import org.binqua.testing.csd.formatter.report.conversation.CucumberNotifier;
+import gherkin.formatter.Formatter;
+import gherkin.formatter.Reporter;
+import gherkin.formatter.model.*;
 import org.binqua.testing.csd.bridge.external.StepContext;
 import org.binqua.testing.csd.formatter.builder.FeatureBuilder;
+import org.binqua.testing.csd.formatter.builder.FeatureBuilderFactory;
 import org.binqua.testing.csd.formatter.builder.SimpleFeatureBuilderFactory;
+import org.binqua.testing.csd.formatter.report.conversation.CucumberNotifier;
 import org.binqua.testing.csd.formatter.report.conversation.CucumberNotifierFactory;
 
 import java.net.URL;
 import java.util.List;
-
-import gherkin.formatter.Formatter;
-import gherkin.formatter.Reporter;
-import gherkin.formatter.model.Background;
-import gherkin.formatter.model.Examples;
-import gherkin.formatter.model.Feature;
-import gherkin.formatter.model.Match;
-import gherkin.formatter.model.Result;
-import gherkin.formatter.model.Scenario;
-import gherkin.formatter.model.ScenarioOutline;
-import gherkin.formatter.model.Step;
 
 public class JsonReportForFeatureFormatter implements Reporter, Formatter {
 
@@ -38,7 +30,7 @@ public class JsonReportForFeatureFormatter implements Reporter, Formatter {
     }
 
     public JsonReportForFeatureFormatter(URL htmlReportDir) {
-        this.cucumberNotifier = CucumberNotifierFactory.instance(new ConfigurationFactory(htmlReportDir, System.getProperties()).createConfiguration());
+        this.cucumberNotifier = CucumberNotifierFactory.instance(new ConfigurationFactory(System.getProperties()).createConfiguration());
         this.featureBuilderFactory = new SimpleFeatureBuilderFactory();
         this.conversationContextsFactory = new SimpleConversationContextsFactory();
     }

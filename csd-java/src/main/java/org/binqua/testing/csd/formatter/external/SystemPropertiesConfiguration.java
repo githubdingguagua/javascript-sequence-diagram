@@ -1,13 +1,10 @@
 package org.binqua.testing.csd.formatter.external;
 
 import org.apache.cxf.common.util.StringUtils;
-
 import org.binqua.testing.csd.common.ManifestReader;
 import org.binqua.testing.csd.formatter.report.conversation.DestinationDirectoryFactoryNameDateTimeAppender;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -16,16 +13,13 @@ import java.util.regex.Pattern;
 class SystemPropertiesConfiguration implements Configuration {
 
     private Properties systemProperties;
-    private UrlConverter htmlReportDir;
     private DestinationDirectoryFactoryNameDateTimeAppender destinationDirectory;
     private ManifestReader manifestReader;
 
     SystemPropertiesConfiguration(Properties systemProperties,
-                                  UrlConverter htmlReportDir,
                                   DestinationDirectoryFactoryNameDateTimeAppender destinationDirectory,
                                   ManifestReader manifestReader) {
         this.systemProperties = systemProperties;
-        this.htmlReportDir = htmlReportDir;
         this.destinationDirectory = destinationDirectory;
         this.manifestReader = manifestReader;
     }
@@ -51,12 +45,8 @@ class SystemPropertiesConfiguration implements Configuration {
 
     @Override
     public File reportDestinationDirectory() {
-        return Boolean.valueOf(systemProperties.getProperty("csdMakeEveryReportDirUnique")) ? destinationDirectory.createDirectoryNameFrom(htmlReportDir.file()) : htmlReportDir.file();
-    }
-
-    @Override
-    public Map<String, Integer> clusterNamePortMap() {
-        return isGenerateSequenceDiagramEnabled() ? htmlReportDir.clusterNamePortMap() : Collections.emptyMap();
+        final File csdReportDir = new File(systemProperties.getProperty("csdReportDir"));
+        return Boolean.valueOf(systemProperties.getProperty("csdMakeEveryReportDirUnique")) ? destinationDirectory.createDirectoryNameFrom(csdReportDir) : csdReportDir;
     }
 
     @Override

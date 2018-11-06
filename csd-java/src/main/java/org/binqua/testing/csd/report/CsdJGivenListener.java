@@ -41,7 +41,7 @@ public class CsdJGivenListener implements ScenarioListener {
             optionalPreviousFeatureId = Option.of(toId(aClass));
         } else {
             if (!currentFeatureId.equals(optionalPreviousFeatureId.get())) {
-                testObserver.notifyFeatureExecutionEnded(optionalPreviousFeatureId.get(), null);
+                testObserver.notifyFeatureExecutionEnded(optionalPreviousFeatureId.get());
 
                 testObserver.notifyFeatureExecutionStarted(currentFeatureId);
                 optionalPreviousFeatureId = Option.of(toId(aClass));

@@ -62,16 +62,6 @@ public class ScenarioIdGeneratorTest {
     }
 
     @Test
-    public void scenarioIdShouldContainAtLeastOneSemicolon() throws Exception {
-        final String aKey = "ab";
-
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(format("Key must contain a semicolon: %s is wrong", aKey));
-
-        idGenerator.record(aKey);
-    }
-
-    @Test
     public void keyShouldNotContainWhitespaces() throws Exception {
         final String aKey = "a b";
 

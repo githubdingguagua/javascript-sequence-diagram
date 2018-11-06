@@ -9,10 +9,12 @@ import java.util.Collections;
 public class VerySimpleJGivenFeatureBuilder implements JGivenFeatureBuilder {
 
     private IdGenerator featureIdGenerator;
+    private IdGenerator scenarioIdGenerator;
     private Feature feature;
 
-    public VerySimpleJGivenFeatureBuilder(IdGenerator featureIdGenerator) {
+    public VerySimpleJGivenFeatureBuilder(IdGenerator featureIdGenerator,IdGenerator scenarioIdGenerator) {
         this.featureIdGenerator = featureIdGenerator;
+        this.scenarioIdGenerator = scenarioIdGenerator;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class VerySimpleJGivenFeatureBuilder implements JGivenFeatureBuilder {
         this.feature = new org.binqua.testing.csd.cucumberreports.model.Feature(
                 featureIdGenerator.idOf(featureId),
                 Collections.emptyList(),
-                "",
+                "description",
                 featureIdGenerator.idOf(featureId),
                 "Feature",
                 0,
@@ -30,7 +32,21 @@ public class VerySimpleJGivenFeatureBuilder implements JGivenFeatureBuilder {
     }
 
     @Override
+    public void withScenario(String scenarioId) {
+        feature.getScenarios().add(new org.binqua.testing.csd.cucumberreports.model.Scenario(
+                scenarioIdGenerator.idOf(scenarioId),
+                "description",
+                scenarioId,
+                "Scenario",
+                0,
+                Lists.newArrayList(),
+                "scenario",
+                Collections.EMPTY_LIST
+        ));
+    }
+
+    @Override
     public org.binqua.testing.csd.cucumberreports.model.Feature build() {
-        return null;
+        return feature;
     }
 }

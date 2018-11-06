@@ -29,10 +29,10 @@ class CsdNotifiersFactoryImpl implements CsdNotifiersFactory {
     private IdentifierGenerator identifierGenerator = new TheIdentifierGenerator();
 
     CsdNotifiersFactoryImpl(UrlAliasResolver urlAliasResolver, ObjectMapper objectMapper) {
-        this(urlAliasResolver, objectMapper, ConversationHttpMessageObserverFactory.httpMessageNotifierInstance());
+        this(urlAliasResolver, objectMapper, ConversationHttpMessageObserverFactory.messageObserverInstance());
     }
 
-    CsdNotifiersFactoryImpl(UrlAliasResolver urlAliasResolver, String serviceName, MessageObserver messageObserver,ObjectMapper objectMapper) {
+    CsdNotifiersFactoryImpl(UrlAliasResolver urlAliasResolver, String serviceName, MessageObserver messageObserver, ObjectMapper objectMapper) {
         this.urlAliasResolver = urlAliasResolver;
         this.serviceName = serviceName;
         this.messageObserver = messageObserver;

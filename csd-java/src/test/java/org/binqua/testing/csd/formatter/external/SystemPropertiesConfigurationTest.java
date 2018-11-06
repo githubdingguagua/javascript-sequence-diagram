@@ -1,9 +1,8 @@
 package org.binqua.testing.csd.formatter.external;
 
+import org.binqua.testing.csd.common.ManifestReader;
 import org.binqua.testing.csd.formatter.report.conversation.DestinationDirectoryFactoryNameDateTimeAppender;
 import org.junit.Test;
-
-import org.binqua.testing.csd.common.ManifestReader;
 
 import java.io.File;
 import java.util.Optional;
@@ -16,19 +15,17 @@ import static org.mockito.Mockito.when;
 
 public class SystemPropertiesConfigurationTest {
 
-    private final UrlConverter htmlReportDir = mock(UrlConverter.class);
     private final ManifestReader manifestReader = mock(ManifestReader.class);
     private final DestinationDirectoryFactoryNameDateTimeAppender directoryFactoryNameDateTimeAppender = mock(DestinationDirectoryFactoryNameDateTimeAppender.class);
 
     private Properties systemProperties = new Properties();
 
     private SystemPropertiesConfiguration underTest = new SystemPropertiesConfiguration(systemProperties,
-                                                                                        htmlReportDir,
                                                                                         directoryFactoryNameDateTimeAppender,
                                                                                         manifestReader);
 
     @Test
-    public void configurationReadRightSystemProperties() throws Exception {
+    public void configurationReadRightSystemProperties() {
 
         final String csdBuildUrl = "bla/bla/181/";
 
@@ -53,12 +50,12 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void defaultNumberOfBuildToShowIs10() throws Exception {
+    public void defaultNumberOfBuildToShowIs10() {
         assertThat(underTest.numberOfBuildsToShow(), is(10));
     }
 
     @Test
-    public void givenNoCsdBuildUrlThenReportIsNotAccessibleFromMultipleReportsPage() throws Exception {
+    public void givenNoCsdBuildUrlThenReportIsNotAccessibleFromMultipleReportsPage() {
 
         systemProperties.setProperty("csdBuildUrl", "");
 
@@ -67,7 +64,7 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void multipleReportsHomeUrl() throws Exception {
+    public void multipleReportsHomeUrl() {
 
         final String someValue = "something";
         systemProperties.setProperty("multipleReportsHomeUrl", someValue);
@@ -79,7 +76,7 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void buildNumberIsCorrect() throws Exception {
+    public void buildNumberIsCorrect() {
 
         systemProperties.setProperty("csdBuildUrl", "http://bla-bli/bla/181/");
         assertThat(underTest.buildNumber(), is("181"));
@@ -90,7 +87,7 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void configurationReadRightSystemPropertiesWithDifferentValues() throws Exception {
+    public void configurationReadRightSystemPropertiesWithDifferentValues() {
 
         final String csdBuildUrl = "bliblibli";
 
@@ -107,7 +104,7 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void givenCsdJavaVersionExistsThenCsdBuildNumberIsCorrect() throws Exception {
+    public void givenCsdJavaVersionExistsThenCsdBuildNumberIsCorrect() {
 
         final String csdBuildNumber = "123";
 
@@ -118,7 +115,7 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void givenCsdJavaVersionIsEmptyThenCsdBuildNumberIsCorrect() throws Exception {
+    public void givenCsdJavaVersionIsEmptyThenCsdBuildNumberIsCorrect() {
 
         when(manifestReader.buildNumberOfManifestContainingAttributeValue("csd-java")).thenReturn(Optional.empty());
 
@@ -127,24 +124,26 @@ public class SystemPropertiesConfigurationTest {
     }
 
     @Test
-    public void reportDestinationDirectoryCanBeNotUnique() throws Exception {
+    public void reportDestinationDirectoryCanBeNotUnique() {
+        final String reportDirectoryInSystemProperties = "someDir/andASubDir";
+
+        systemProperties.setProperty("csdReportDir", reportDirectoryInSystemProperties);
         systemProperties.setProperty("csdMakeEveryReportDirUnique", "false");
 
-        File theReportDir = new File("/bla/bla/bla");
-
-        when(htmlReportDir.file()).thenReturn(theReportDir);
+        File theReportDir = new File(reportDirectoryInSystemProperties);
 
         assertThat(underTest.reportDestinationDirectory(), is(theReportDir));
 
     }
 
     @Test
-    public void reportDestinationDirectoryCanBeUnique() throws Exception {
+    public void reportDestinationDirectoryCanBeUnique() {
+        final String reportDirectoryInSystemProperties = "someDir/andASubDir";
+
+        systemProperties.setProperty("csdReportDir", reportDirectoryInSystemProperties);
         systemProperties.setProperty("csdMakeEveryReportDirUnique", "true");
 
-        File theReportDir = new File("/bla/bla/bla");
-
-        when(htmlReportDir.file()).thenReturn(theReportDir);
+        File theReportDir = new File(reportDirectoryInSystemProperties);
 
         File aUniqueDirectory = new File("theUniqueDir");
 

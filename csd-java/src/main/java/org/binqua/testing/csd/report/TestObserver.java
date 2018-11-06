@@ -1,7 +1,6 @@
 package org.binqua.testing.csd.report;
 
 import org.binqua.testing.csd.bridge.external.StepContext;
-import org.binqua.testing.csd.cucumberreports.model.Feature;
 
 public interface TestObserver {
 
@@ -11,7 +10,7 @@ public interface TestObserver {
 
     void notifyScenarioExecutionEnded(String cucumberFeatureId, String scenarioId);
 
-    void notifyFeatureExecutionEnded(String cucumberFeatureId, Feature feature);
+    void notifyFeatureExecutionEnded(String cucumberFeatureId);
 
     void notifyTestEnded();
 

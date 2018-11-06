@@ -2,7 +2,9 @@ package org.binqua.testing.csd.formatter.report.conversation;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-
+import org.binqua.testing.csd.bridge.external.*;
+import org.binqua.testing.csd.cucumberreports.MustacheReportPrinter;
+import org.binqua.testing.csd.external.core.Message;
 import org.binqua.testing.csd.formatter.external.Configuration;
 import org.binqua.testing.csd.formatter.report.ReportFileNames;
 import org.binqua.testing.csd.formatter.report.assets.BuildInfoWriter;
@@ -11,24 +13,8 @@ import org.binqua.testing.csd.formatter.report.assets.SimpleAssetsWriter;
 import org.binqua.testing.csd.formatter.report.featuremenu.ApacheUtilFeatureMenuWriter;
 import org.binqua.testing.csd.formatter.report.featuremenu.StringBuilderFeatureMenuContentGenerator;
 import org.binqua.testing.csd.formatter.report.featuremenu.TestFeaturesFactory;
+import org.binqua.testing.csd.formatter.report.screenshot.*;
 import org.binqua.testing.csd.formatter.util.IdGeneratorFactory;
-import org.binqua.testing.csd.bridge.external.Conversation;
-import org.binqua.testing.csd.bridge.external.ConversationContextNotifierFactory;
-import org.binqua.testing.csd.bridge.external.ConversationHttpMessageObserverFactory;
-import org.binqua.testing.csd.bridge.external.ConversationSupport;
-import org.binqua.testing.csd.bridge.external.StepContextObserver;
-import org.binqua.testing.csd.bridge.external.StepId;
-import org.binqua.testing.csd.cucumberreports.MustacheReportPrinter;
-import org.binqua.testing.csd.external.core.Message;
-import org.binqua.testing.csd.formatter.report.screenshot.ApachePageSourceWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.NoImageCropper;
-import org.binqua.testing.csd.formatter.report.screenshot.ScreenshotWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.SimpleScreenshotImageWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.SimpleScreenshotWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.ThreadBasedImageWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.ThreadBasedSourceWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.ThreadBasedThumbnailImageWriter;
-import org.binqua.testing.csd.formatter.report.screenshot.ThumbnailImageWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,7 +90,7 @@ public class CucumberNotifierFactory {
 
     public static CucumberNotifier instance(Configuration configuration) {
         CucumberNotifierFactory.reportFileNames = ReportFileNamesFactory.instance(configuration.reportDestinationDirectory());
-        CucumberNotifierFactory.conversationSupport = createTheConversationSupport(configuration.clusterNamePortMap(), configuration.isGenerateSequenceDiagramEnabled());
+//        CucumberNotifierFactory.conversationSupport = createTheConversationSupport(configuration.clusterNamePortMap(), configuration.isGenerateSequenceDiagramEnabled());
         CucumberNotifierFactory.stepContextObserver = ConversationContextNotifierFactory.instance(configuration.isGenerateSequenceDiagramEnabled());
         CucumberNotifierFactory.configuration = configuration;
         return CucumberNotifierHolder.INSTANCE;

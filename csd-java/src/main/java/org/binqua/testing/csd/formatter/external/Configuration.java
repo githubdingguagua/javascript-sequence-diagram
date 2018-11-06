@@ -1,7 +1,6 @@
 package org.binqua.testing.csd.formatter.external;
 
 import java.io.File;
-import java.util.Map;
 
 public interface Configuration {
 
@@ -14,8 +13,6 @@ public interface Configuration {
     boolean isAccessibleFromMultipleReportsPage();
 
     File reportDestinationDirectory();
-
-    Map<String,Integer> clusterNamePortMap();
 
     String buildNumber();
 

@@ -2,12 +2,12 @@ package org.binqua.testing.csd.formatter.report.conversation;
 
 import org.binqua.testing.csd.formatter.report.ReportFileNames;
 
-class FeatureReportWriterImpl implements FeatureReportWriter {
+public class FeatureReportWriterImpl implements FeatureReportWriter {
 
     private ReportFileNames reportFileNames;
     private JsonWriter jsonWriter;
 
-    FeatureReportWriterImpl(ReportFileNames reportFileNames, JsonWriter jsonWriter) {
+    public FeatureReportWriterImpl(ReportFileNames reportFileNames, JsonWriter jsonWriter) {
         this.reportFileNames = reportFileNames;
         this.jsonWriter = jsonWriter;
     }

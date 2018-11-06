@@ -1,8 +1,8 @@
 package org.binqua.testing.csd.bridge.external;
 
+import org.binqua.testing.csd.bridge.external.hazelcast.HazelcastSharedObjectFactory;
 import org.binqua.testing.csd.bridge.external.hazelcast.MyItemListener;
 import org.binqua.testing.csd.bridge.internal.StepHttpMessagesObserver;
-import org.binqua.testing.csd.bridge.external.hazelcast.HazelcastSharedObjectFactory;
 import org.binqua.testing.csd.external.core.MessageObserver;
 
 import java.util.Map;
@@ -28,7 +28,11 @@ public class ConversationHttpMessageObserverFactory {
         ));
     }
 
-    public static MessageObserver httpMessageNotifierInstance() {
+    public static MessageObserver messageObserverInstance() {
+        return AcceptanceTestSupportHolder.INSTANCE;
+    }
+
+    public static ConversationSupport conversationSupportInstance() {
         return AcceptanceTestSupportHolder.INSTANCE;
     }
 

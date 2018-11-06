@@ -27,7 +27,7 @@ public class ScenarioIdGenerator implements IdGenerator {
     private void checkThatKeySyntaxIsValid(String key) {
         checkNoWhitespacesIn(key);
         checkNoUppercaseIn(key);
-        checkAtLeastASemicolon(key);
+//        checkAtLeastASemicolon(key);
     }
 
     private void checkAtLeastASemicolon(String key) {

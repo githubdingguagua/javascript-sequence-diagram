@@ -68,7 +68,7 @@ public class CsdJGivenListenerTest {
         verify(testObserver).notifyScenarioExecutionStarted("org.binqua.testing.csd.report.ATestToBeExecuted.firstTestMethod");
         verify(testObserver).notifyScenarioExecutionEnded("org.binqua.testing.csd.report.ATestToBeExecuted" , "org.binqua.testing.csd.report.ATestToBeExecuted.firstTestMethod");
 
-        verify(testObserver).notifyFeatureExecutionEnded("org.binqua.testing.csd.report.ATestToBeExecuted" ,null);
+        verify(testObserver).notifyFeatureExecutionEnded("org.binqua.testing.csd.report.ATestToBeExecuted");
         verify(testObserver).notifyFeatureExecutionStarted("org.binqua.testing.csd.report.AnotherTestToBeExecuted");
         verify(testObserver).notifyScenarioExecutionStarted("org.binqua.testing.csd.report.AnotherTestToBeExecuted.anotherTestMethodToBeExecuted");
         verify(testObserver).notifyScenarioExecutionEnded("org.binqua.testing.csd.report.ATestToBeExecuted" , "org.binqua.testing.csd.report.ATestToBeExecuted.firstTestMethod");
